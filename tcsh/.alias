@@ -1,0 +1,30 @@
+# shell commands
+alias ls ls -F
+alias ll ls -l
+alias la ls -a
+
+alias killany 'kill -9 `ps -aux | grep \!* | grep -v grep | cut -c10-14`'
+
+# algomake
+#alias make /mnts/cdstools/$PLATFORM/bin/make
+alias updatease "svn update $SOURCE/ase\!*"
+alias updateutil "svn update $SOURCE/utility470"
+alias makegenlib  "asemake GL_MT=yes"
+alias 470make386 "asemake LIC_MGR=no COMPILER=SunCC PARALLEL=1 SMART_HEAP=no"
+
+#alias xterm "xterm -bg black -fg green &"
+
+# run ASE
+alias setaseenv "source /home/rayc/ase/scripts/setEnvironment \!*"
+alias startase "~/ase/scripts/startIt &"
+alias stopase "~/ase/scripts/stopIt"
+alias aseutil "~/ase/scripts/aseUtil"
+alias startasb "cd ~/debug/asb; ~/ase/scripts/asbIt"
+
+# diffase buildno.1 buildno.2
+#alias diffase "cvs_diffbl -l ASE-4_7_0"
+alias runmyharness '/home/ase/TestSuite/scripts/runPersonalLTH.pl --run $SOURCE/ASE-$ASE_VERSION/ship/$PLATFORM_WIDE/ase-v$ASE_VERSION \!*'
+
+#alias sqlplus  $ORACLE_HOME/bin/sqlplus rayc_dba/rayc123@gaea:1511/DEV11GA
+
+alias edit "emacsclient \!* &"
