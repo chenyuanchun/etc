@@ -99,12 +99,13 @@ else
 endif
 endif
 
+# redirect putty gui to titans
 if ($RHOST == "torrayc") then
-  setenv DISPLAY titans:2
+  setenv DISPLAY titans:10
 endif
 
 
-setenv PURIFYOPTIONS "-max_threads=300 -always-use-cache-dir -cache-dir=/home/rayc/temp/purifycache"
+#setenv PURIFYOPTIONS "-max_threads=300 -always-use-cache-dir -cache-dir=/home/rayc/temp/purifycache"
 
 # rayc
 setenv PRODUCT_NAME ASE

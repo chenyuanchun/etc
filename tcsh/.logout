@@ -1,0 +1,6 @@
+#!/bin/tcsh
+
+# in case forget to kill aseserver
+kill -9 `ps | grep aseserver | grep -v grep | cut -c1-5`
+
+echo "Going home so soon? Bye!"

@@ -1,15 +1,15 @@
 # shell commands
-alias ls ls -F
-alias ll ls -l
-alias la ls -a
+alias ls "ls -F"
+alias ll "ls -l"
+alias la "ls -a"
+alias l. "ls -d .*" 
 
-alias killany 'kill -9 `ps -aux | grep \!* | grep -v grep | cut -c10-14`'
+alias killany 'kill -9 `ps -urayc | grep \!* | grep -v grep | cut -c1-5`'
 
 # algomake
 #alias make /mnts/cdstools/$PLATFORM/bin/make
 alias updatease "svn update $SOURCE/ase\!*"
 alias updateutil "svn update $SOURCE/utility470"
-alias makegenlib  "asemake GL_MT=yes"
 alias 470make386 "asemake LIC_MGR=no COMPILER=SunCC PARALLEL=1 SMART_HEAP=no"
 
 #alias xterm "xterm -bg black -fg green &"
