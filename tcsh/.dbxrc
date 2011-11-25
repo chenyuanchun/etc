@@ -1,0 +1,227 @@
+#.dbxrc (dbx topic)
+# If no .dbxrc file is found by dbx during startup, dbx switches into 
+# '.dbxinit compatibility mode', which means that dbx automatically aliases `alias'
+# to `dalias' and reads your .dbxinit file. See `help alias' and `help startup'
+# for more information. (This is for backward compatibility and may not be
+# supported in future releases.)
+
+# You can prevent the startup message:
+#
+#   Using .dbxinit compatibility mode. See `help .dbxrc' for more information.
+#
+# by creating a .dbxrc file. To populate it with the contents of this help topic, 
+# use the command:
+#      help .dbxrc >$HOME/.dbxrc
+# To enable a useful set of options, use:
+#      help .dbxrc | sed 's/^##/  /' >$HOME/.dbxrc
+# Then:
+#      source $HOME/.dbxrc
+
+# The .dbxrc file uses KornShell syntax; old-style dbx aliases do not
+# work in a .dbxrc file. To convert your old .dbxinit file:
+#
+# (1) Append the contents of your .dbxinit to your .dbxrc.
+# (2) Remove (or rename) your .dbxinit file.
+# (3) Change `alias foo bar baz' to `dalias foo bar baz', or 
+#            `alias foo bar baz' to `alias foo="bar baz"'
+#
+# If you routinely use newer and older releases of dbx, you might
+# wish to retain your .dbxinit file and add uses of new functionality to
+# a .dbxrc file which `sources' your .dbxinit. To read in the existing
+# .dbxinit file, if any, you must assume that old-style aliases
+# may be found, so we must temporarily redefine `alias'.
+
+# xemacs integration stuff
+# dump the full path name or gud cannot pick up the source code
+dbxenv output_short_file_name off
+dalias switchloc '(func; line; file) | perl /home/louis/bin/dbxlinedummp $thread $lwp'
+dalias up 'up \!*; switchloc'
+dalias down 'down \!*; switchloc'
+dalias frame 'frame \!*; switchloc'
+dalias f frame
+dalias s step
+dalias dis clear
+dalias disable clear
+dalias finish step up
+dalias disable handler -disable all
+dalias enable handler -enable all
+dalias fin step up
+dalias r run
+dalias lstack print -f "%x" $sp
+# End of xemacs integration
+
+kalias alias=dalias
+if   [ -r   .dbxinit ]
+then source .dbxinit
+elif [ -r   $HOME/.dbxinit ]
+then source $HOME/.dbxinit
+fi
+kalias alias=kalias
+
+# The following section provides the typical entries in a .dbxrc file:
+
+#  set +o path              # uncomment this line to disable $PATH searching
+## set -o ignoresuspend     # uncomment to cause dbx to ignore ^Z
+set -o emacs             # uncomment to enable emacs-style command editing
+#  set -o vi                # uncomment this line for vi-style editing
+## dbxenv output_short_file_name on  # print short pathnames for files
+## dbxenv scope_look_aside on # find file static symbols even when not in scope
+## dbxenv output_dynamic_type on  # cause `-d' to be the default for printing
+                                  # and displaying (C++)
+#  dbxenv stack_verbose off # suppress printing of arguments and line numbers
+                            # in `where' (improves performance)
+## button ignore step up    # add `step up' button to GUI
+
+# Enable dbx journaling to help Sun support personnel diagnose bugs
+# in the field.  If you are debugging on a sparcv9 machine running
+# a 64-bit kernel, uncomment the following two commands:
+#
+#  import /opt/SUNWspro/lib/v9/debugging.so >/dev/null
+#  log -default -start
+#
+# otherwise, uncomment these two commands:
+#
+#  import /opt/SUNWspro/lib/debugging.so >/dev/null
+#  log -default -start
+
+
+# Useful aliases:
+#
+
+# My alias
+kalias alias=kalias         # ensure that KSH alias syntax is used
+alias n=next
+alias del=delete
+
+## alias N=nexti
+
+## alias S=stepi
+## alias su="step up"
+## alias c=cont
+alias p=print
+alias q=quit
+## alias w=where
+alias break="stop in"
+alias breakin="stop at"
+alias dir=pathmap
+alias directory=pathmap
+alias stepup="step up"
+## alias sa="stop at"
+## alias sm="stop modify"
+## alias sr="stop returns"
+## alias sif="stop infunction"
+## alias sim="stop inmember"
+## alias sic="stop inclass"
+## alias en="handler -enable"
+## alias di="handler -disable"
+## alias wi=whatis
+## alias l=list
+## alias u=up
+## alias d=down
+alias h=history
+## alias f=frame
+## alias goto="stop at !:1 -temp; cont"
+## button lineno goto
+
+# Useful functions:
+
+## function hex    # print arg in hex
+## {
+##     : ${1?"usage: $0 <expr>  # print <expr> in hex"}
+##     typeset -i16 x
+##     ((x = $[(int)$*]))
+##     echo - $* = $x
+## }
+## typeset -q hex
+
+## function pp # print pointer; print expression as symbolic
+## {           # address and hex value
+##     : ${1?"usage: $0 <expr> # print expr as symbolic address and hex value"}
+##     builtin examine $[(int)$*]/X
+## }
+## typeset -q pp
+
+## function offsetof  # print offset of $2 in type $1: offsetof strct fld
+## {
+##     : ${2?"usage: $0 <structname> <fieldname>  # offset of fld in struct"}
+##     [ -z "$3" ] || { echo "$0: unexpected argument" >&2 && return; }
+##     echo - $[(int)(&((($1*)0)->$2))]
+## }
+## alias off=offsetof
+
+## function environment  # dump the environment variables of the target process
+## {
+##     [ -z "$1" ] || { echo "$0: unexpected argument" >&2 && return; }
+##     typeset -i i=0
+##     typeset env="((char **)$[(char**)environ])"
+##     while :
+##     do
+##         x=$[($env)[$i]]
+##         echo "$i: " "${x#0x*\ }"
+##         case "$x" in
+##         *\(nil\)*)    break;;
+##         esac
+##         ((i += 1))
+##     done
+## }
+
+## function hexdump         # dump $2 (default: sizeof $1) bytes in hex
+## {
+##     : ${1?"usage: $0 <exp> [<size>]  # dump <size> bytes in hex"}
+##     typeset -i16 p="$[(void *)&$1]"                     # address of $1
+##     typeset -i s="${2:-$[sizeof ($1)]}" >/dev/null 2>&1 # number of bytes
+## 
+##     builtin examine $p/$[(${s:-4}+3)/4]X
+## }
+## typeset -q hexdump
+
+## alias hd=hexdump
+
+## button literal hexdump        # uncomment to install GUI button
+
+## if $havegui
+## then
+##     SMSO=                    # can't use reverse video in GUI
+##     RMSO=
+## else
+##     SMSO=$(tput smso)        # start standout mode (reverse video)
+##     RMSO=$(tput rmso)        # end standout mode
+## fi
+
+## PS1="$SMSO(dbx !)$RMSO " # reverse-video prompt with history number
+
+# Example of the _cb_prompt callback routine (see `help callbacks')
+
+# function _cb_prompt
+# {
+#     if $mtfeatures
+#     then    # set prompt for MT debugging
+#             PS1='${SMSO}${thread} ${lwp} <!>${RMSO} '
+#     else    # set prompt for non-thread debugging
+#             PS1='${SMSO}dbx<!>${RMSO} '
+#     fi
+# }
+
+# GenLib sources
+#//directory /home/louis/asecvs/ASE/GLsource/Math
+#//directory /home/louis/asecvs/ASE/GLsource/Threads
+#//directory /home/louis/asecvs/ASE/GLsource/Apps
+#//directory /home/louis/asecvs/ASE/GLsource/Base
+#//directory /home/louis/asecvs/ASE/GLsource/Finance
+#//directory /home/louis/asecvs/ASE/GLsource/Netting
+#//directory /home/louis/asecvs/ASE/GLsource/Patterns
+#//directory /home/louis/asecvs/ASE/GLsource/System
+#//directory /home/louis/asecvs/ASE/GLsource/Tools
+#//directory /home/louis/asecvs/ASE/GLsource/Scenarios
+
+# Environment... Force to pick up /usr/lib/lwp
+#setenv LD_LIBRARY_PATH /usr/lib/lwp:${LD_LIBRARY_PATH}
+#setenv ASE_LIBRARY_PATH $SOURCE/ASE-$ASE_VERSION/ship/solaris-x86_64-2.10/ase-v/lib
+#setenv ASE_CONFIG_PATH /mnts/buildarea13/ase/rayc/src/ASE-$ASE_VERSION/ship/solaris-x86_64-2.10/ase-v/cfg
+setenv PROP_DIR /home/rayc/ase/prop
+#setenv ASE_TARGET $SOURCE/ASE-$ASE_VERSION/obj/solaris-x86_64-2.10/ScenarioEngine/aseserver
+setenv ASE_ARGS  "-R algosuite-test -U algo -P password -C ./aserc -p 43041"
+
+# suppress message
+#dbxenv suppress_startup_message 6.2
+dbxenv suppress_startup_message 7.6
