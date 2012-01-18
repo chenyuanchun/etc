@@ -1,0 +1,3 @@
+* Test harness - git
+  git clone ase@titans:/mnts/qaarea3/testpcre/ase/ASETests.git Tests
+  git clone ase@titans:/mnts/qaarea3/testpcre/ase/ASEBaselines.git Baselines

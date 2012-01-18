@@ -1,0 +1,305 @@
+#+STARTUP: content
+#+OPTIONS: ^:{}
+#+TITLE: ASE Sustaining
+#+AUTHOR: Ray Chen
+
+* ACR00181553: Bug in ASE 471-080
+  - Root cause: client input file has lines that combined scenario/risk factor info.
+    ,"Rep_Set",S1,0.000100000,#9BBB59,CS-EUR_AAA,0,,,,,,non-parallel shift,Term,
+    Current code ignores the rest of line if it's identified as 'scenario' line.
+  - Rev. 12832, 12834
+  - Test case added Bugs/ACR181553_ScenarioRFInfoInSameLine
+
+* ACR00181998: ASEUtilities-4.7.0: Build #0076 fails to build at /Compose/Compose.C
+  + 0894 not available which is forced to point to in algo.tools.ASEUtilities.mk
+  + rev 256
+* ACR00182073: ASE Timeseries files
+  + root cause: ASE load parser takes any line with first column containing '(' as header
+  + Changed to determine header by checking "(...;...)", rev. 12889
+  + Add test case in 4.7.0 using client data: ACR00182286: Add tests - ACR00182073 ASE Timeseries files; Bugs/ACR182073_Load_FirstColumnContainsBracket
+** DONE [100%] Port to 4.7.0 ACR00182142; revision 12888
+*** DONE Code change
+*** DONE run relevant test cases
+*** DONE check in code
+** DONE [100%] Port to 4.8.0 ACR00182217; revision 12868
+*** DONE Code change
+*** DONE Test harness
+    test cases spacesInFields_Binary and SI_SMOKE updated.
+* Clean up configuration variables
+** Deprecated config vars that still appear in ASE 4.8.0 code
+   | Deprecated variables  | Description                                                                                 |
+   |-----------------------+---------------------------------------------------------------------------------------------|
+   | InterpolationOrder    | Replaced by DefaultInterpolationOrder                                                       |
+   |-----------------------+---------------------------------------------------------------------------------------------|
+   | RMAssumeZeroMean      | now be set directly on the Regulatory and RiskMetrics Joint Estimations                     |
+   |-----------------------+---------------------------------------------------------------------------------------------|
+   | RMCriticalCount       | now an attribute in RiskMetrics Joint Estimation                                            |
+   |-----------------------+---------------------------------------------------------------------------------------------|
+   | CorrelationAdjustment | output the correlations as price price unless overridden by the matrix generation -Y option |
+
+** Configuration variables that are used in ASE 4.8.0 code
+   | Configuration Variable                                            | Type       | Default Value                  | Description                       |
+   |-------------------------------------------------------------------+------------+--------------------------------+-----------------------------------|
+   | .daysToExpire                                                     | int        | 30                             | license                           |
+   | ___userSpecifiedConfigFile                                        | path       |                                |                                   |
+   | Algo00NC_AnnualThreshold                                          | double     | 365.1                          |                                   |
+   | Algo00NC_OffsetForDays                                            | double     | 0.9                            |                                   |
+   | Algo00NC_OffsetForYears                                           | double     | 0.015                          |                                   |
+   | ALGO_CSV_CACHE_DIRECTORY                                          | path       | ./                             | merge with other cache dirs       |
+   | AllowExtrapolationFromNonBusinessDays                             | bool       | false                          |                                   |
+   | AllowPre460InterpolationExtrapolation                             | bool       | false                          |                                   |
+   | ApiLogVerbosity                                                   | string     | MINOR                          |                                   |
+   | ASE_${ComponentDbServerType}                                      | string     |                                | .so file name                     |
+   | ASE_WWW_PATH                                                      | path       | $ASE_WWW_PATH                  |                                   |
+   | ASEDLMExtension                                                   | string     |                                |                                   |
+   | ASELeaseCapacity                                                  | int        | 1                              |                                   |
+   | ASEValidateDeprecatedConfigVariables                              | bool       | false                          |                                   |
+   | BaseCurrency                                                      | string     | USD                            |                                   |
+   | BetaEigenValueThreshold                                           | double     | 1.0e-6                         |                                   |
+   | BetaFileVersionNumber                                             | string     |                                |                                   |
+   | BinaryCachePriority                                               | int        | 0                              |                                   |
+   | BinaryEndianType                                                  | string     | LittleEndian                   |                                   |
+   | BinaryFileMinSize                                                 | int        | 500M                           |                                   |
+   | BinaryFileSize                                                    | string     | 2G                             |                                   |
+   | BinarySourceSourceScore                                           | int        | 100                            |                                   |
+   | BMCorrelatorCreatorScore                                          | int        | 1                              |                                   |
+   | BusDaysInEstimation                                               | int        | 255                            |                                   |
+   | BusDaysInSimulation                                               | int        | 255                            |                                   |
+   | CacheHistoricalScenarios                                          | bool       | true                           |                                   |
+   | CacheMixtureOfNormal                                              | bool       | false                          |                                   |
+   | CachePCA                                                          | bool       | false                          |                                   |
+   | CalendarDir                                                       | path       | ./                             |                                   |
+   | CalendarDir                                                       | string     | ./                             |                                   |
+   | CalendarName                                                      | string     | SatSunOnly                     |                                   |
+   | CombinedCorrelatorCreatorScore                                    | int        | 0                              |                                   |
+   | CommodityCMFGroupName                                             | string     | commodityCMF_data              |                                   |
+   | CommodityGroupName                                                | string     | commodity_data                 |                                   |
+   | CompDBConversionFile                                              | path       | ../cfg/ASECompConversion.xml   |                                   |
+   | ComponentDbDatabaseName                                           | string     |                                |                                   |
+   | ComponentDbServerName                                             | string     |                                |                                   |
+   | ComponentDbServerType                                             | string     |                                |                                   |
+   | ComponentDbSinkFile                                               | path       | ${ComponentDbSourceFile}       |                                   |
+   | ComponentDbSinkType                                               | string     | None                           |                                   |
+   | ComponentDbSourceFile                                             | path       | component                      |                                   |
+   | ComponentDbSourceFile                                             | path       | compDB                         |                                   |
+   | ComponentDbSourceType                                             | string     | Binary                         |                                   |
+   | ComponentRecoveryDir                                              | string     | ${ALGO_TOP}/temp               |                                   |
+   | ConditionalSourceScore                                            | int        | 4                              |                                   |
+   | ConstantValuePreprocessorPriority                                 | int        | 4                              |                                   |
+   | Correlation_Adjustment                                            | bool       | true                           |                                   |
+   | CorrelationAdjustment                                             | switch     | true                           |                                   |
+   | CreditSpreadConverterPriority                                     | int        | -1                             |                                   |
+   | CreditSpreadGroupName                                             | string     | creditspread_data              |                                   |
+   | crossOverYear                                                     | int        | 50                             |                                   |
+   | CSVCachePriority                                                  | int        | 1                              |                                   |
+   | CSVSourceSourceScore                                              | int        | 1                              |                                   |
+   | DailyRateConverterScore                                           | int        | 4                              |                                   |
+   | database                                                          | string     | empty                          |                                   |
+   | DatabaseName                                                      | string     |                                |                                   |
+   | DatabaseSinkType                                                  | string     | None                           |                                   |
+   | DatabaseType                                                      | string     | Binary                         |                                   |
+   | DebugDir                                                          | string     | ./                             |                                   |
+   | DebugIncomingRequest                                              | bool       | false                          |                                   |
+   | DebugLogServerHTTPCommunication                                   | bool       | false                          |                                   |
+   | DebugServerReply                                                  | bool       | false                          |                                   |
+   | DecayFactor                                                       | int        | 400                            |                                   |
+   | DefaultInterpolationOrder                                         | string     |                                |                                   |
+   | DefaultIRDayCountBasis                                            | double     | 365.0                          |                                   |
+   | DefaultNumOfPC                                                    | int        | 2                              |                                   |
+   | DefaultSeed                                                       | long       | 123456                         |                                   |
+   | DirName                                                           | path       | ./                             |                                   |
+   | DisableUnificationForCovDecomposition                             | bool       | false                          |                                   |
+   | DomainNameExtension                                               | string     | empty                          |                                   |
+   | EigenValueThreshold                                               | double     | 1e-12                          |                                   |
+   | EnableLegacyUnificationForCovDecomposition                        | bool       | false                          |                                   |
+   | EnableMeanFunctionDump                                            | bool       | false                          |                                   |
+   | EnableMultiStepStandardShift                                      | bool       | false                          |                                   |
+   | EnableScenarioCsvCaching                                          | bool       | false                          |                                   |
+   | Epsilon                                                           | double     | 10e-8                          |                                   |
+   | EquityGroupName                                                   | string     | equity_data                    |                                   |
+   | EstimationCacheDir                                                | path       | ./                             |                                   |
+   | EWMAUnknownOldCal                                                 | bool       | false                          |                                   |
+   | ExcelFileVersionNumber                                            | string     | 04                             |                                   |
+   | ExtendedBinaryScenarioManifestDump                                | bool       | true                           |                                   |
+   | FailOnInvalidCalendar                                             | bool       | false                          |                                   |
+   | ForeignExchangeGroupName                                          | string     | fx_data                        |                                   |
+   | GenerateLargeScenarioSet                                          | bool       | true                           |                                   |
+   | GenLibDump                                                        | bool       | false                          |                                   |
+   | GenLibDumpPath                                                    | path       | ./                             |                                   |
+   | ImpliedVolatilityGroupName                                        | string     | iv_data                        |                                   |
+   | InputsValidationType                                              | string     | strict                         |                                   |
+   | InterestRateGroupName                                             | string     | ir_data                        |                                   |
+   | InterpolationMethod                                               | string     | L (Linear)                     |                                   |
+   | InterpolationPreprocessorScore                                    | int        | 3                              |                                   |
+   | LogControllerConfig                                               | stringlist |                                |                                   |
+   | LogFilePrefix                                                     | path       |                                |                                   |
+   | LoggerType                                                        | string     | FileLogger                     |                                   |
+   | LogMessageFormatter                                               | string     | DefaultFormater                |                                   |
+   | LogServiceName                                                    | string     | empty                          |                                   |
+   | MacroFactorGroupName                                              | string     | macro_factor                   |                                   |
+   | ManualSourceSourceScore                                           | int        | 1                              |                                   |
+   | MarketIndexGroupName                                              | string     | market_data                    |                                   |
+   | MatchBaseline_454_460                                             | bool       | false                          |                                   |
+   | MaxRelativeError                                                  | double     | 0.05                           |                                   |
+   | MeanFunctionDayCountScale                                         | int        | 365                            |                                   |
+   | MeanFunctionDumpInfo                                              | struct     |                                |                                   |
+   | MetaDataSource                                                    | string     | FileMetaDataSource             |                                   |
+   | ModelsToOutputSettlementDates                                     | string     | empty                          |                                   |
+   | MonteCarloSourceScore                                             | int        | 1                              |                                   |
+   | MultiThreadImitationOn                                            | bool       | false                          |                                   |
+   | NegativeValuePreprocessorPriority                                 | int        | 2                              |                                   |
+   | NoArbFactorsRelationship                                          | string     | ExtendedHWBSFactors            |                                   |
+   | NoArbitrageRelationship                                           | string     | ImpliedBlackVolatilityCurve    |                                   |
+   | NoArbSourceScore                                                  | int        | 7,6                            |                                   |
+   | NoArbStochasticVarRelationship                                    | string     | StochasticVarianceFactor       |                                   |
+   | NoContractsNotRolling                                             | int        | 0                              |                                   |
+   | NoCorrelatorCreatorScore                                          | int        | 2                              |                                   |
+   | NonIncrementalSpreadConversion                                    | switch     | true                           |                                   |
+   | NonMarketGroupName                                                | string     | non_market_data                |                                   |
+   | NonPositiveValuePreprocessorPriority                              | int        | 2                              |                                   |
+   | NumberOfNodesForPromptPreprocessor                                | int        | ~0                             |                                   |
+   | NumberOfPCUseForSobol                                             | int        | 40                             |                                   |
+   | NumberOfRequestProcessorInSystem                                  | int        | 2                              |                                   |
+   | NumberOfThreadsForCovarDecomp                                     | int        | 0                              |                                   |
+   | NumberOfThreadsInMCGeneration                                     | int        | 3                              |                                   |
+   | NumberOfThreadsInOUDecomposition                                  | int        | 1                              |                                   |
+   | NumberOfThreadsInSystem                                           | int        | 3                              |                                   |
+   | OUCorrelatorCreatorScore                                          | int        | 1                              |                                   |
+   | OutputBetaHeader                                                  | bool       | true                           |                                   |
+   | PreserveRfMappingsAtBinCompose                                    | bool       | false                          |                                   |
+   | PromptnessNodesPreprocessorPriority                               | int        | -1                             |                                   |
+   | PromptnessScenarioAxisName                                        | string     | Settlement Date                |                                   |
+   | RandomNumberGeneratorName                                         | string     | empty                          |                                   |
+   | RestoreNonIncrementalCreditSpreadInMCScenarios                    | bool       | false                          |                                   |
+   | RiskFactorSanityCheck                                             | bool       | true                           |                                   |
+   | RiskMetricsConversion                                             | double     | 165.0                          |                                   |
+   | RLM_LICENSE                                                       | string     | empty                          |                                   |
+   | RMAcceptableCount                                                 | int        | 400                            |                                   |
+   | RMAssumeZeroMean                                                  | bool       | false                          |                                   |
+   | RMConfigFileName                                                  | path       | RMLinks.cfg                    |                                   |
+   | RMCriticalCount                                                   | int        | 0                              |                                   |
+   | RMTimeWindowAdjustment                                            | int        | 1                              |                                   |
+   | RollingNearbyDefault                                              | bool       | true                           |                                   |
+   | RWVaRMapFileDateFormat                                            | string     | %Y%m%d                         |                                   |
+   | RWVaRMapFilePath                                                  | path       | ${ASE_CONFIG_PATH}             |                                   |
+   | RWVaRMapMissingRFIgnored                                          | switch     | false                          |                                   |
+   | ScenarioBinaryFileSourceDir                                       | path       | ./                             |                                   |
+   | ScenarioCSVFileSourceDir                                          | path       | ./                             |                                   |
+   | ScenarioEquityAttribute                                           | string     | SpotPrice                      |                                   |
+   | ScenarioManualFileSourceDir                                       | path       | ./                             |                                   |
+   | ScenarioOutputPrecision                                           | int        | 6                              |                                   |
+   | ScenarioOutputThreads                                             | int        | env MACHINECPU 8               |                                   |
+   | ScenarioOutputType                                                | string     | Model-Dependent                |                                   |
+   | ScenarioPoolSize                                                  | int        | 80                             |                                   |
+   | ServerConfigDefaultPort                                           | int        | 8080                           |                                   |
+   | ServerLogFile                                                     | string     | ./                             |                                   |
+   | ServerMappingDir                                                  | path       | ./                             |                                   |
+   | ServerName                                                        | string     |                                |                                   |
+   | ServerType                                                        | string     |                                |                                   |
+   | SERVICE_NAME("default").connection (retries, delay)               | int        | retrieved from algocxx         |                                   |
+   | SessionAutoSave                                                   | int        | 0                              |                                   |
+   | SessionCleanupInterval                                            | int        | 600                            |                                   |
+   | SessionDate                                                       | date       | ~0                             |                                   |
+   | SessionExpiryPeriod                                               | int        | 3600                           |                                   |
+   | ShowAdjustedRollPriceIntermediateValues                           | bool       | false                          |                                   |
+   | ShowNonViewableIntermediateValues                                 | bool       | false                          |                                   |
+   | SingularValueTolerance                                            | double     | 1.0e-5                         |                                   |
+   | SortVCVOutputByRiskFactorName                                     | bool       | false                          |                                   |
+   | SplitScenarioGeneration                                           | bool       | false                          |                                   |
+   | StandardNodesPreprocessorPriority                                 | int        | -1                             |                                   |
+   | StatisticsOutputPrecision                                         | int        | 8                              |                                   |
+   | StatisticStdThreshold                                             | double     | 1.0*10e-8                      |                                   |
+   | SubThreadStackSize                                                | int        | 0                              | determine_machine_stacksize()     |
+   | SystemThreadPoolQueueSize                                         | int        | 2000                           |                                   |
+   | TimeStampFormat                                                   | string     | <%s %s>: %s                    |                                   |
+   | UnicodeEncoding                                                   | string     |                                |                                   |
+   | UseBaseScenario                                                   | switch     | true                           |                                   |
+   | UseBlasForCovarMatUpdate                                          | bool       | false                          |                                   |
+   | useBrownianBridgeForMultiStepBMPathConstructionFromSobolSequences | bool       | false                          |                                   |
+   | UseDirectInterpolation                                            | bool       | false                          |                                   |
+   | UseLinearTimeScalingForMarginalDistributionMean                   | bool       | false                          |                                   |
+   | UseOldBinaryFileNamingConvention                                  | bool       | false                          |                                   |
+   | UseOldPriceVolatilityMethod                                       | bool       | false                          |                                   |
+   | UseRecordAddTransactionMode                                       | bool       | true                           |                                   |
+   | UserInputDir                                                      | path       | ./                             |                                   |
+   | UserModelConfigFile                                               | string     | ${ASE_HOME}/cfg/UserModels.cfg |                                   |
+   | UseSettlementDatesForScenarioOutput                               | bool       | false                          |                                   |
+   | UseUnbiasedEwmaMeanForRMEstimation                                | bool       | false                          |                                   |
+   | ValueExprPreprocessorPriority                                     | int        | -1                             |                                   |
+   | VaRMapFileRegExp                                                  | string     |                                |                                   |
+   | VCVDecompositionAlgorithm                                         | string     | empty                          |                                   |
+   | xASE_gl55And24LaggedFibonacciRnGen                                | bool       | false                          |                                   |
+   | xASE_isGLServerAvailable                                          | bool       | false                          |                                   |
+   | xASEAlgoFormatFilterCommand                                       | string     |                                | command line to run the converter |
+   | xASEAllowUseOfYieldCurveCalibrationTermFromAlgo0xAsShortRateProxy | bool       | false                          |                                   |
+   | xASEBetaNoSpaceFileName                                           | bool       | false                          |                                   |
+   | xASECCTBackupWarningMessageSource                                 | string     | empty                          |                                   |
+   | xASECCTDumpUpdatedCompName                                        | string     |                                |                                   |
+   | xASECCTDumpUpdatedCompTypes                                       | stringlist |                                |                                   |
+   | xASECCTMR_BlockType                                               | string     | Database                       |                                   |
+   | xASECCTMR_CompositeModelType                                      | string     | MonteCarlo Scenario Generator  |                                   |
+   | xASECCTMR_ModelType                                               | string     | Mean Reversion - PCA Normal    |                                   |
+   | xASECCTMRFilesReg                                                 | string     |                                |                                   |
+   | xASECCTRMIDRegExp                                                 | string     |                                |                                   |
+   | xASECCTTodayReg                                                   | string     |                                |                                   |
+   | xASECCTUsingIntermediateValuesMap                                 | bool       | true                           |                                   |
+   | xASECSVCurveAttr                                                  | string     | Surface                        |                                   |
+   | xASEDBBlobSize                                                    | int        | 32<<10 (32K)                   |                                   |
+   | xASEDBCacheSize                                                   | int        | 100000                         |                                   |
+   | xASEDBPartitionSize                                               | int        | 10000                          |                                   |
+   | xASEDumpDBSinkToFiles                                             | string     | empty                          |                                   |
+   | xASEDumpDBSourceToFiles                                           | string     | empty                          |                                   |
+   | xASEDumpOldComponentWhenLoading                                   | bool       | false                          |                                   |
+   | xAseEnable460HW2F_EBSModel                                        | bool       | false                          |                                   |
+   | xASEInitSQL                                                       | string     | empty                          |                                   |
+   | xASEIntermediateValuePrecision                                    | int        | 15                             |                                   |
+   | xASELoadIgnoreEmptyLine                                           | bool       | true                           |                                   |
+   | xASELogCompDBTransactionFile                                      | string     | empty                          |                                   |
+   | xASELogDBTransactionFile                                          | string     | empty                          |                                   |
+   | xASELookupForceReRegister                                         | bool       | false                          |                                   |
+   | xASELookupMinimalRenewTime                                        | int        | 1                              |                                   |
+   | xASELookupRenewDebug                                              | bool       | false                          |                                   |
+   | xASEMatchBaseLineTargetVersion                                    | string     | empty                          |                                   |
+   | xASEMimicGUI_DumpRequest                                          | string     | empty                          |                                   |
+   | xASEMTScenarioOutput                                              | bool       | true                           |                                   |
+   | xASEMTTimeSeriesLoading                                           | bool       | false                          |                                   |
+   | xASESecurity_TestDomain                                           | string     | algosuite-basic                |                                   |
+   | xASEShredValueMatch                                               | int        | 1                              |                                   |
+   | xASESupportMultipleEstimationPeriod                               | bool       | false                          |                                   |
+   | xASETCPRecvBufSize                                                | int        | 0                              |                                   |
+   | xASETCPSendBufSize                                                | int        | 0                              |                                   |
+   | xASETSCacheSize                                                   | int        | 100                            |                                   |
+   | xASEUseAbsoluteEigenvalueClusterMethod                            | bool       | false                          |                                   |
+   | xASEUseFixedFloatOutput                                           | bool       | false                          |                                   |
+   | xASEXMLReserverRatio                                              | int        | sprc 10; other 0               |                                   |
+   | yASESecurity_TestDomain                                           | string     | algosuite-test                 |                                   |
+   | ZeroCouponConverterPriority                                       | int        | -1                             |                                   |
+   | ZeroTermApproximationForShortRate                                 | double     | 1.0e-6                         |                                   |
+  
+* ACR00182300: Marginal distribution of t copula - validation
+  Validation-CacheEst/Marginal_T_Distribution
+  Validation-ScenarioGen/Marginal_T_Distribution
+* ACR00176483: Deprecate Scenario*****FileSourceDir configuration variables
+  revsion: 12899
+  | Variable                    | description                                                                            |
+  |-----------------------------+----------------------------------------------------------------------------------------|
+  | ALGO_CSV_CACHE_DIRECTORY    | obselete, use ScenarioFileSourceDir instead                                            |
+  | ScenarioCSVFileSourceDir    | going to deprecate, if defined, use its own value; otherwise use ScenarioFileSourceDir |
+  | ScenarioBinaryFileSourceDir | going to deprecate, if defined, use its own value; otherwise use ScenarioFileSourceDir |
+  | ScenarioManualFileSourceDir | going to deprecate, if defined, use its own value; otherwise use ScenarioFileSourceDir |
+  | ScenarioFileSourceDir       | newly added                                                                            |
+** DONE CSV output doesn't use the config var, but use "./" instead; 4.6.1 does not allow CSV/Manual generation witout -f
+   see [[ACR00182581]]
+   revision 12910
+* <<ACR00182581>>: CSV and Manual scenario generation should enforce -f option
+  | format | options           | behavior           |
+  |--------+-------------------+--------------------|
+  | Binary | -f ./scenarios/s1 | ./scenario/s1.bin  |
+  | Binary | -f test           | $BINDIR/test.bin   |
+  | Binary | -s s1, no -f      | $BINDIR/s1.bin     |
+  | CSV    | -s s1, no -f      | error              |
+  | CSV    | -f test           | ./test.csv         |
+  | CSV    | -f ./scenarios/s1 | ./scenarios/s1.csv |
+  | Manual | -s s1, no -f      | error              |
+  | Manual | -f test           | $MANDIR/test.mss   |
+  | Manual | -f ./scenarios/s1 | ./scenarios/s1.mss |
