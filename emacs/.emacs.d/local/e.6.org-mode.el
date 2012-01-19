@@ -1,6 +1,7 @@
+(when (not (eq system-type 'usg-unix-v))
 
-(setq load-path (cons "~/.emacs.d/org-7.7/lisp" load-path))
-(setq load-path (cons "~/.emacs.d/org-7.7/contrib/lisp" load-path))
+(setq load-path (cons "~/.emacs.d/org-7.8.03/lisp" load-path))
+(setq load-path (cons "~/.emacs.d/org-7.8.03/contrib/lisp" load-path))
  
 (require 'org-install)
 (require 'org-publish)
@@ -12,3 +13,5 @@
 (global-set-key "\C-cl" 'org-store-link)
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
+
+)

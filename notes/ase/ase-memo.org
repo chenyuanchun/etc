@@ -1,3 +1,48 @@
+#+STARTUP: content
+#+OPTIONS: ^:{}
+#+TITLE: ASE Memo
+#+AUTHOR: Ray Chen
+
 * Test harness - git
   git clone ase@titans:/mnts/qaarea3/testpcre/ase/ASETests.git Tests
   git clone ase@titans:/mnts/qaarea3/testpcre/ase/ASEBaselines.git Baselines
+* AlgoSuite
+** Install
+   /mnts/postings5/AlgoBin-4.7.0/latest/share/private/linkinstaller -p /mnts/packaging/central_installation/4.7.0/AlgoSuite-daily/promoted/solaris-sparc64-2.10-oracle-11g/ -i AS470
+** Run
+   cd ../TOP
+   source cshrc
+   $ALGO_HOME/algosecurity/bin/start-cfgserver
+*** Using default config
+    $ALGO_HOME/algosecurity/bin/start-algosecurity -d securitymaster
+    $ALGO_HOME/algosecurity-v4.6.0/bin/start-algosecurity -dmaster
+
+    $ASE_HOME/bin/start-ase -U algo -P password
+*** Service Browser (to check if the service starts up properly)
+    $ALGOSB_HOME/bin/service-browser
+*** Password certificate tool
+    $ALGOSECURITY_HOME/bin/password-certificate-tool -a list
+*** Set up Security Server
+    Start GUI: $SETUP_HOME/bin/algosetup -c $ALGO_HOME/cfg/ConfigServer.cfg
+    [[./img/securityserverconfig.png][GUI]]
+* AlgoSuite on Windows
+** Installation
+   Copy the zip files from central installation
+   C:\Algorithmics\algosuite471>.\bin\createTOP .\ .\TOP
+** Run
+   C:\Algorithmics\algosuite471\TOP\algocmd.exe
+
+   %ALGOSECURITY_HOME%\bin\start-algosecurity -d securitymaster
+   %ALGOSECURITY_HOME%\bin\stop-algosecurity -U algo -P password -R algosuite
+
+   %ALGO_HOME%\algosecurity\bin\start-cfgserver
+
+   %ASE_HOME%\bin\start-ase server -C aserc -U algo -P password -R algosuite-test -c %ALGO_HOME%/cfg/ConfigServer.cfg
+   %ASE_HOME%\bin\start-ase server -C aserc -U algo -P password -R algosuite-test
+
+   %ASE_HOME%\bin\stop-ase -U algo -P password -R algosuite-test
+** Browse Services
+   %ALGOSB_HOME%/bin/service-browser
+** Set ALGO_TOP to use config server instead of local file
+   ALGO_TOP=C:\Algorithmics\algosuite471-0297\TOP
+   

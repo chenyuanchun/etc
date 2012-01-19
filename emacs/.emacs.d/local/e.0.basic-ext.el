@@ -22,6 +22,8 @@
 ;(global-set-key [(shift f3)] 'highlight-symbol-prev)
 ;;(global-set-key [(meta f3)] 'highlight-symbol-prev)))
 
+(when (not (eq system-type 'usg-unix-v))
 ;; vim-mode
 (add-to-list 'load-path "~/.emacs.d/lyro-vim-mode-tip")
 (require 'vim)
+)

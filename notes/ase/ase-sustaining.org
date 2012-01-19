@@ -283,7 +283,7 @@
   revsion: 12899
   | Variable                    | description                                                                            |
   |-----------------------------+----------------------------------------------------------------------------------------|
-  | ALGO_CSV_CACHE_DIRECTORY    | obselete, use ScenarioFileSourceDir instead                                            |
+  | ALGO_CSV_CACHE_DIRECTORY    | obsolete, use ScenarioFileSourceDir instead                                            |
   | ScenarioCSVFileSourceDir    | going to deprecate, if defined, use its own value; otherwise use ScenarioFileSourceDir |
   | ScenarioBinaryFileSourceDir | going to deprecate, if defined, use its own value; otherwise use ScenarioFileSourceDir |
   | ScenarioManualFileSourceDir | going to deprecate, if defined, use its own value; otherwise use ScenarioFileSourceDir |
@@ -303,5 +303,6 @@
   | Manual | -s s1, no -f      | error              |
   | Manual | -f test           | $MANDIR/test.mss   |
   | Manual | -f ./scenarios/s1 | ./scenarios/s1.mss |
+  revision 12922
 
 * Log adjusted start/end date of estimation period of VcV
