@@ -2,7 +2,9 @@
 
 setenv HOST `hostname`
 setenv UNAME `uname -ps`
-setenv SOURCE /mnts/buildarea13/ase/rayc/src
+setenv BUILD_AREA /mnts/buildarea13/ase/rayc
+setenv SOURCE $BUILD_AREA/src
+setenv TEMP $BUILD_AREA/temp
 setenv CVSROOT :pserver:cvstc:/cvstc
 set CDSTOOLS=/mnts/cdstools
 
@@ -80,10 +82,12 @@ if ( "$PLATFORM_WIDE" == "rhel-x86_64-5.2" ) then
   set MYAPP = /mnts/buildarea13/ase/rayc/app/opt
   set path = ( ${MYAPP}/gdb/bin $path )
   set path = ( ${MYAPP}/global-6.0/bin $path )
+  set path = ( ${CDSTOOLS}/Python-2.6.2/rhel-x86_64-5.2-shared/bin/ $path )
 endif
 
 if ( "$PLATFORM" == "solaris-i386-2.10" ) then
   set path = ( ${CDSTOOLS}/vim-7.3/${PLATFORM}/bin $path )
+  set path = ( ${CDSTOOLS}/emacs-23.3/${PLATFORM}/bin $path )
 endif
 
 setenv MANPATH :/local/develop-96q2/man:/mnts/contrib/man:/usr/local/test/man:/usr/local/man:/usr/man
