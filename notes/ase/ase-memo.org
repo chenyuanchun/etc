@@ -46,6 +46,3 @@
 ** Set ALGO_TOP to use config server instead of local file
    ALGO_TOP=C:\Algorithmics\algosuite471-0297\TOP
    
-
-* Change management
-  promote: /mnts/cdstools/share/bin/promote ASEUtilities 4.7.0 0079
