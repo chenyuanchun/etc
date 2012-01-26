@@ -16,9 +16,9 @@ alias 470make386 "asemake LIC_MGR=no COMPILER=SunCC PARALLEL=1 SMART_HEAP=no"
 
 # run ASE
 alias setaseenv "source /home/rayc/ase/scripts/setEnvironment \!*"
-alias startase "~/ase/scripts/startIt &"
-alias stopase "~/ase/scripts/stopIt"
-alias aseutil "~/ase/scripts/aseUtil"
+alias startase "$STARTASE &"
+alias stopase "$ASEUTIL -o ShutDown"
+alias aseutil "$ASEUTIL \!*"
 alias startasb "cd ~/debug/asb; ~/ase/scripts/asbIt"
 
 # diffase buildno.1 buildno.2
