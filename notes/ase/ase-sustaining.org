@@ -322,8 +322,14 @@
 * Move run scripts to bin/scripts
   - ACR00165410
   - revision 12946
+  - configure has been moved back to bin by Andrei
+  - timeseries moves back to bin at Mourad's request, rev. 12956
 * Client issue: predict the behaviour of ase.RunScenarioSplit
   - /pruuk/pruuk/AlgoSuite470/ase-v4.7.0/bin/../util/aseshred: undefined symbol: _ZN7AlgoASE9SingletonI19ASESystemThreadPoolNS_18ClassLevelLockableIS1_N4algo10BasicMutexEEENS_11OperatorNewIS1_EENS_14ObjectLifeTimeIS1_EEE11si_instanceE
     function name: AlgoASE::Singleton<ASESystemThreadPool, AlgoASE::ClassLevelLockable<ASESystemThreadPool, algo::BasicMutex>, AlgoASE::OperatorNew<ASESystemThreadPool>, AlgoASE::ObjectLifeTime<ASESystemThreadPool> >::si_instance
   - The client might not apply patch properly, as the util directory contains both old and new scripts/execs. The problem is caused by using old exec with new libraries.
-
+* ASEUtilities 4.8.0 removes source pro and upgrades to gcc-4.6.2
+  - ACR00184264, build failure due to ASE already upgraded
+  - remove dependency to genlib as well
+  - rev. 270, 271
+    
