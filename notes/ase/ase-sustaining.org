@@ -332,4 +332,17 @@
   - ACR00184264, build failure due to ASE already upgraded
   - remove dependency to genlib as well
   - rev. 270, 271
+* Fix cmake issue after upgrading to 4.6.2
+  - cmake $SOURCE/ase480/makefiles/cmake -DDISABLE_CCACHE=yes -DALGO_VERBOSE_CMAKE_RUN=yes
+  - rev. 12957
+* ACR00184876 ScenarioSetDir to support multiple paths
+** requirements
+   ScenarioFileSourceDir = /home/mbenouar/ase/bin-scenarios/:$ALGO_TOP/static/ase/csv
+   - when displaying on GUI, all the eligible scenario source files (binary, csv, manual) in the designated locations should be visible;
+   - when generating from file based scenarios, all the paths should be searched in order to match scenario set name until one found to be used as source;
+   - when generating to files without a file path being specified, the scenario set name will be used as file name, and the first path will be used as output path
+   - when deleting file based scenario set, all the paths should be searched in order to match scenario set name until one found to be deleted.
+** rev 12981
+* Make cmake build compile on windows after upgrading (remvoe sourcepro, and other upgrades)
+  rev. 12975,12976
     

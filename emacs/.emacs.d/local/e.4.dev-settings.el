@@ -28,6 +28,7 @@
 )
 
 ;; Perl mode
+(defalias 'perl-mode 'cperl-mode)
 (defun my-perl-mode-hook ()
   (setq tab-width 2)
   (define-key c++-mode-map "\C-m" 'reindent-then-newline-and-indent)
@@ -47,3 +48,6 @@
 (add-hook 'lisp-mode-hook 'my-lisp-mode-hook)
 (add-hook 'perl-mode-hook 'my-perl-mode-hook)
 
+;; compilation mode to scroll automatically
+
+(setq compilation-scroll-output 1)
