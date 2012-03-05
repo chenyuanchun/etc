@@ -45,9 +45,9 @@
    | Algo00NC_AnnualThreshold                                          | double     | 365.1                          |                                   |
    | Algo00NC_OffsetForDays                                            | double     | 0.9                            |                                   |
    | Algo00NC_OffsetForYears                                           | double     | 0.015                          |                                   |
-   | ALGO_CSV_CACHE_DIRECTORY                                          | path       | ./                             | merge with other cache dirs       |
+   | ALGO_CSV_CACHE_DIRECTORY                                          | path       | ./                             | replaced by ScenarioFileSourceDir |
    | AllowExtrapolationFromNonBusinessDays                             | bool       | false                          |                                   |
-   | AllowPre460InterpolationExtrapolation                             | bool       | false                          |                                   |
+   | AllowPre460InterpolationExtrapolation                             | bool       | false                          | removed                           |
    | ApiLogVerbosity                                                   | string     | MINOR                          |                                   |
    | ASE_${ComponentDbServerType}                                      | string     |                                | .so file name                     |
    | ASE_WWW_PATH                                                      | path       | $ASE_WWW_PATH                  |                                   |
@@ -61,15 +61,15 @@
    | BinaryEndianType                                                  | string     | LittleEndian                   |                                   |
    | BinaryFileMinSize                                                 | int        | 500M                           |                                   |
    | BinaryFileSize                                                    | string     | 2G                             |                                   |
-   | BinarySourceSourceScore                                           | int        | 100                            |                                   |
+   | BinarySourceSourceScore                                           | int        | 100                            | removed                           |
    | BMCorrelatorCreatorScore                                          | int        | 1                              |                                   |
    | BusDaysInEstimation                                               | int        | 255                            |                                   |
    | BusDaysInSimulation                                               | int        | 255                            |                                   |
    | CacheHistoricalScenarios                                          | bool       | true                           |                                   |
    | CacheMixtureOfNormal                                              | bool       | false                          |                                   |
    | CachePCA                                                          | bool       | false                          |                                   |
-   | CalendarDir                                                       | path       | ./                             |                                   |
-   | CalendarDir                                                       | string     | ./                             |                                   |
+   | CalendarDir                                                       | path       | ./                             | duplicate                         |
+   | CalendarDir                                                       | string     | ./                             | duplicate                         |
    | CalendarName                                                      | string     | SatSunOnly                     |                                   |
    | CombinedCorrelatorCreatorScore                                    | int        | 0                              |                                   |
    | CommodityCMFGroupName                                             | string     | commodityCMF_data              |                                   |
@@ -84,15 +84,15 @@
    | ComponentDbSourceFile                                             | path       | compDB                         |                                   |
    | ComponentDbSourceType                                             | string     | Binary                         |                                   |
    | ComponentRecoveryDir                                              | string     | ${ALGO_TOP}/temp               |                                   |
-   | ConditionalSourceScore                                            | int        | 4                              |                                   |
+   | ConditionalSourceScore                                            | int        | 4                              | removed                           |
    | ConstantValuePreprocessorPriority                                 | int        | 4                              |                                   |
-   | Correlation_Adjustment                                            | bool       | true                           |                                   |
-   | CorrelationAdjustment                                             | switch     | true                           |                                   |
+   | Correlation_Adjustment                                            | bool       | true                           | deprecated, replaced by -Y        |
+   | CorrelationAdjustment                                             | switch     | true                           | no -Y == CorrelationAdjustment    |
    | CreditSpreadConverterPriority                                     | int        | -1                             |                                   |
    | CreditSpreadGroupName                                             | string     | creditspread_data              |                                   |
    | crossOverYear                                                     | int        | 50                             |                                   |
    | CSVCachePriority                                                  | int        | 1                              |                                   |
-   | CSVSourceSourceScore                                              | int        | 1                              |                                   |
+   | CSVSourceSourceScore                                              | int        | 1                              | removed                           |
    | DailyRateConverterScore                                           | int        | 4                              |                                   |
    | database                                                          | string     | empty                          |                                   |
    | DatabaseName                                                      | string     |                                |                                   |
@@ -120,7 +120,7 @@
    | EstimationCacheDir                                                | path       | ./                             |                                   |
    | EWMAUnknownOldCal                                                 | bool       | false                          |                                   |
    | ExcelFileVersionNumber                                            | string     | 04                             |                                   |
-   | ExtendedBinaryScenarioManifestDump                                | bool       | true                           |                                   |
+   | ExtendedBinaryScenarioManifestDump                                | bool       | true                           | removed                           |
    | FailOnInvalidCalendar                                             | bool       | false                          |                                   |
    | ForeignExchangeGroupName                                          | string     | fx_data                        |                                   |
    | GenerateLargeScenarioSet                                          | bool       | true                           |                                   |
@@ -137,7 +137,7 @@
    | LogMessageFormatter                                               | string     | DefaultFormater                |                                   |
    | LogServiceName                                                    | string     | empty                          |                                   |
    | MacroFactorGroupName                                              | string     | macro_factor                   |                                   |
-   | ManualSourceSourceScore                                           | int        | 1                              |                                   |
+   | ManualSourceSourceScore                                           | int        | 1                              | removed                           |
    | MarketIndexGroupName                                              | string     | market_data                    |                                   |
    | MatchBaseline_454_460                                             | bool       | false                          |                                   |
    | MaxRelativeError                                                  | double     | 0.05                           |                                   |
@@ -145,12 +145,12 @@
    | MeanFunctionDumpInfo                                              | struct     |                                |                                   |
    | MetaDataSource                                                    | string     | FileMetaDataSource             |                                   |
    | ModelsToOutputSettlementDates                                     | string     | empty                          |                                   |
-   | MonteCarloSourceScore                                             | int        | 1                              |                                   |
+   | MonteCarloSourceScore                                             | int        | 1                              | removed                           |
    | MultiThreadImitationOn                                            | bool       | false                          |                                   |
    | NegativeValuePreprocessorPriority                                 | int        | 2                              |                                   |
    | NoArbFactorsRelationship                                          | string     | ExtendedHWBSFactors            |                                   |
    | NoArbitrageRelationship                                           | string     | ImpliedBlackVolatilityCurve    |                                   |
-   | NoArbSourceScore                                                  | int        | 7,6                            |                                   |
+   | NoArbSourceScore                                                  | int        | 7,6                            | removed                           |
    | NoArbStochasticVarRelationship                                    | string     | StochasticVarianceFactor       |                                   |
    | NoContractsNotRolling                                             | int        | 0                              |                                   |
    | NoCorrelatorCreatorScore                                          | int        | 2                              |                                   |
@@ -223,7 +223,7 @@
    | UseRecordAddTransactionMode                                       | bool       | true                           |                                   |
    | UserInputDir                                                      | path       | ./                             |                                   |
    | UserModelConfigFile                                               | string     | ${ASE_HOME}/cfg/UserModels.cfg |                                   |
-   | UseSettlementDatesForScenarioOutput                               | bool       | false                          |                                   |
+   | UseSettlementDatesForScenarioOutput                               | bool       | false                          | ModelsToOutputSettlementDates     |
    | UseUnbiasedEwmaMeanForRMEstimation                                | bool       | false                          |                                   |
    | ValueExprPreprocessorPriority                                     | int        | -1                             |                                   |
    | VaRMapFileRegExp                                                  | string     |                                |                                   |
@@ -314,6 +314,9 @@
   + set the missing Currency attr to be base currency when dumping VCV in server format and log a minor error
   + rev. 12935
   + Test case MatrixGeneration baseline updated due to this change
+** DONE copy the cq to 4.8.0 and port the fix
+   ACR00186156 making Currency as an option when exporting Server01 file
+   rev 13085
 * ACR00184273: When generating from file based scenario sources, the scenario set name should not be the file name
   + Add a data member and corresponding interface to store and access the actual scenario set name for scenario sources/sinks
   + Add implementation for Binary/CSV sources/sinks respectively to read/write scenario set name properly
@@ -343,6 +346,455 @@
    - when generating to files without a file path being specified, the scenario set name will be used as file name, and the first path will be used as output path
    - when deleting file based scenario set, all the paths should be searched in order to match scenario set name until one found to be deleted.
 ** rev 12981
+** When generating in CSV format, the behavior stays the same with current behavior, that is, if 
+   -f <filename>, the output file will be ./<filename>.csv
+   -f <fullpath>, the output file will be <fullpath>
 * Make cmake build compile on windows after upgrading (remvoe sourcepro, and other upgrades)
   rev. 12975,12976
+* Clean up util directory
+  | old              | new              | desc                           | test cases                                                   |
+  |------------------+------------------+--------------------------------+--------------------------------------------------------------|
+  | compose          | -                | to be replaced by ASEUtilities | Parked: FunctionTests/StandaloneComposition                  |
+  | compose_triggers | -                | to be replaced by ASEUtilities | Parked: FunctionTests/StandaloneComposeTriggers              |
+  | formatconvert    | -                | to be replaced by ASEUtilities | Parked: FunctionTests/FormatConverterUtil                    |
+  | merge            | -                | to be replaced by ASEUtilities | Parked: Bugs/ACR155311_MergeSelfScenarioSet                  |
+  | shred            | -                | to be replaced by ASEUtilities | Parked: FunctionTests/StandaloneShred,RFMapShredding         |
+  | runasemimicgui   | mimicgui         |                                | Updated:FunctionTests/RiskNeutralRelativeScenOut-HW2F_AF_EBS |
+  |                  |                  |                                | Bugs/ACR99827_DumpHistoricalIncrements                       |
+  | runcalendartest  | validatecalendar |                                | Updated:common/commonServerFunctions                         |
+  | rundbtest        | dbtest           |                                |                                                              |
+  | runrwclient      | rwclient         |                                | Updated:FunctionTests/BrownianBridge_RWClient                |
+  | timeseries       | -                | duplicate in bin               |                                                              |
+  rev. 12988
+* differences between 4.5.3 and 4.7.0
+  | Items              | 4.5.3             | 4.7.0                |
+  |--------------------+-------------------+----------------------|
+  | OS version         | solaris-sparc-2.9 | solaris-sparc64-2.10 |
+  | Compiler           | SunCC-8.0.5       | SunCC-12.0.4         |
+  | Architecture       | sparc 32bit       | sparc 64bit          |
+  | GenLib             | 3.6.0             | 4.7.0                |
+  | CLAPACK            | 3.0               | 3.0p1                |
+  | SourcePro/Core     | 9.0.0p5           | E10u1p2              |
+  | SourcePro/DB       | 5.2.0p6           | E10u1p2              |
+  | SourcePro/Analysis | 8.0.0p5           | E10u1p2              |
+* ACR00185713 Clean up config vars - remove CorrelationAdjustment and *SourceScore
+** rev 13014,13015: NoArbSourceScore, ConditionalSourceScore, MonteCarloSourceScore, BinarySourceSourceScore, CSVSourceSourceScore, ManualSourceSourceScore
+** rev 13025,13026: Removing CorrelationAdjustment and Correlation_Adjustment needs to update test cases:
+    FunctionTests/423_MatrixGen_Compatibility
+    Validation-MATLAB/Dist_CommodityForward
+    Validation-VcvGen/Commodity_VCV_CFC_BIASED
+    Validation-VcvGen/Commodity_VCV_CFC_BIASED_AZM
+    Validation-VcvGen/Commodity_VCV_CFC_FR
+    Validation-VcvGen/Commodity_VCV_CFC_FR_AZM
+    Validation-VcvGen/Commodity_VCV_CFC_UNBIASED
+    Validation-VcvGen/Commodity_VCV_CFC_UNBIASED_AZM
+    Validation-VcvGen/Commodity_VCV_GBM_BIASED
+    Validation-VcvGen/Commodity_VCV_GBM_BIASED_AZM
+    Validation-VcvGen/Commodity_VCV_GBM_FR
+    Validation-VcvGen/Commodity_VCV_GBM_FR_AZM
+    Validation-VcvGen/Commodity_VCV_GBM_UNBIASED
+    Validation-VcvGen/Commodity_VCV_GBM_UNBIASED_AZM
+** rev 13054: ExcelFileVersionNumber, more than 130 test cases and baselines updated:
+  ASE-Utility/ScenGenFromBinCache
+  ASE-Utility/ScenarioGeneration
+  Bugs/ACR111310_PreprocessorInVcV
+  Bugs/ACR115253_ConstValueCheck
+  Bugs/ACR115878_ValueExpressionDataLoading
+  Bugs/ACR136676_RFMapping
+  Bugs/ACR174607_EwmaScalingExcludeRfsWithZeroVolatility
+  Bugs/ACR175321_DropRFFromSimpleReturnWithEWMA
+  Bugs/ACR96437_NoDestructivePre
+  Bugs/ACR97316-MomentMatching
+  ClientData/bankOne_Sep2003
+  ClientData/bbva_Oct2004
+  ClientData/bbva_Sep2006
+  ClientData/bci_Oct2002
+  ClientData/bl_Apr2007
+  ClientData/cai_Nov2003
+  ClientData/cnbv_Apr2004
+  ClientData/eib_may2004
+  ClientData/ekt_Jul2002
+  ClientData/ge_Aug2003
+  ClientData/koch_Aug2004
+  ClientData/nib_Oct2002
+  ClientData/nochu_Feb2003
+  ClientData/socGen_Aug2007
+  ClientData/texaco_Mar2005
+  Database/components_Binary
+  Database/components_DB2
+  Database/components_MSSQL
+  Database/components_Oracle
+  FunctionTests/BinaryFilesTaginCE
+  FunctionTests/HeterogenHistorTriggers
+  FunctionTests/NoArb_ModelLevelOutputType
+  FunctionTests/PreProcessor_constantValuesWithMultipleEstimations
+  FunctionTests/PreProcessor_constantValuesWithStandardNodes
+  FunctionTests/PreProcessor_nonPositiveValuesWithConstantValues
+  FunctionTests/RiskNeutralRelativeScenOut-EBS
+  FunctionTests/RiskNeutralRelativeScenOut-HBS
+  FunctionTests/ScenUpdateAfterGenFail
+  FunctionTests/StatGen_Func_ACR105424
+  Validation-MATLAB/Dist_CommodityForward
+  Validation-MATLAB/TIME_DEP_CFC
+  Validation-MATLAB/T_COPULA
+  Validation-ScenarioGen/Antithetic_variates
+  Validation-ScenarioGen/BASIC_REG_GBMNI_GBM
+  Validation-ScenarioGen/BASIC_REG_GBM_GBM
+  Validation-ScenarioGen/BASIC_REG_GN_GLN
+  Validation-ScenarioGen/CompRet_DiffShift_1By1_0.6
+  Validation-ScenarioGen/CompRet_Diff_Twist_1by1_Unifrm
+  Validation-ScenarioGen/CompRet_Shift_Diff_0_Compl
+  Validation-ScenarioGen/Comp_ret_1x1_shift_diff_1
+  Validation-ScenarioGen/Comp_ret_1x1_shift_diff_all
+  Validation-ScenarioGen/Comp_ret_1x1_shift_rat_1
+  Validation-ScenarioGen/Comp_ret_1x1_shift_ratio_0
+  Validation-ScenarioGen/Comp_ret_1x1_shift_ratio_1d
+  Validation-ScenarioGen/Comp_ret_1x1_twist_diff_0
+  Validation-ScenarioGen/Comp_ret_1x1_twist_diff_1
+  Validation-ScenarioGen/Comp_ret_1x1_twist_diff_1D
+  Validation-ScenarioGen/Comp_ret_1x1_twist_ratio_0
+  Validation-ScenarioGen/Comp_ret_1x1_twist_ratio_1
+  Validation-ScenarioGen/Comp_ret_compl_shift_diff_1d
+  Validation-ScenarioGen/Comp_ret_compl_shift_ratio_1d
+  Validation-ScenarioGen/Comp_ret_compl_twist_diff_1d
+  Validation-ScenarioGen/Comp_ret_compl_twist_ratio_1d
+  Validation-ScenarioGen/Comp_ret_repl_shift_diff_1d
+  Validation-ScenarioGen/Comp_ret_repl_shift_ratio_1d
+  Validation-ScenarioGen/Comp_ret_repl_twist_diff_1d
+  Validation-ScenarioGen/Comp_ret_repl_twist_ratio_1d
+  Validation-ScenarioGen/Comp_ret_std_shift_diff_1
+  Validation-ScenarioGen/Comp_ret_std_shift_diff_1D
+  Validation-ScenarioGen/Comp_ret_std_shift_diff_all
+  Validation-ScenarioGen/Comp_ret_std_shift_ratio_0
+  Validation-ScenarioGen/Comp_ret_std_shift_ratio_1
+  Validation-ScenarioGen/Comp_ret_std_shift_ratio_1D
+  Validation-ScenarioGen/Comp_ret_std_twist_diff_0
+  Validation-ScenarioGen/Comp_ret_std_twist_diff_1
+  Validation-ScenarioGen/Comp_ret_std_twist_diff_1D
+  Validation-ScenarioGen/Comp_ret_std_twist_ratio_1D
+  Validation-ScenarioGen/Credit_spread_converter
+  Validation-ScenarioGen/HW2F_EBS_TIME_DEP
+  Validation-ScenarioGen/HW2F_HBS_SPECIAL_CASES
+  Validation-ScenarioGen/Moment_matching_EBS
+  Validation-ScenarioGen/Moment_matching_MS
+  Validation-ScenarioGen/Moment_matching_SS
+  Validation-ScenarioGen/Moment_matching_antithetic
+  Validation-ScenarioGen/Neg_fwd_fix_mc
+  Validation-ScenarioGen/Neg_fwd_fix_multistep
+  Validation-ScenarioGen/Neg_fwd_fix_shock
+  Validation-ScenarioGen/PCA_block_level
+  Validation-ScenarioGen/PortfolioPCA_Block_level
+  Validation-ScenarioGen/ScenarioDist_Normal_Rank
+  Validation-ScenarioGen/SimpleReturn_AsIs_1By1_0.8
+  Validation-ScenarioGen/Std_shift_rf_all
+  Validation-ScenarioGen/SimpleRtns_AsIs_Complete
+  Validation-ScenarioGen/SimpleRtns_AsIs_Replication
+  Validation-ScenarioGen/SimpleRtns_Diff_Complete
+  Validation-ScenarioGen/SimpleRtns_Diff_Replication
+  Validation-ScenarioGen/SimpleRtns_Ratio_Complete
+  Validation-ScenarioGen/SimpleRtns_Ratio_Replication
+  Validation-ScenarioGen/Simple_ret_1x1_asis_2D
+  Validation-ScenarioGen/Simple_ret_1x1_asis_3D
+  Validation-ScenarioGen/Simple_ret_1x1_exp
+  Validation-ScenarioGen/Simple_ret_1x1_shift_diff_1D
+  Validation-ScenarioGen/Simple_ret_compl_3D
+  Validation-ScenarioGen/Simple_ret_compl_compl_2D
+  Validation-ScenarioGen/Simple_ret_repl_2D
+  Validation-ScenarioGen/Simple_ret_repl_3D
+  Validation-ScenarioGen/Simple_ret_std_asis_2D
+  Validation-ScenarioGen/Simple_ret_std_asis_3D
+  Validation-ScenarioGen/Std_shift_pca_all
+  Validation-ScenarioGen/Std_shift_pca_part
+  Validation-ScenarioGen/Std_shift_port_pca_all
+  Validation-ScenarioGen/Std_shift_port_pca_part
+  Validation-ScenarioGen/Std_shift_rf_nodes
+  Validation-ScenarioGen/Std_shift_rf_rf
+  Validation-ScenarioGen/VOL_SCALING_1X1_DIFF
+  Validation-ScenarioGen/VOL_SCALING_1X1_RAT
+  Validation-ScenarioGen/VOL_SCALING_COMPL_RAT
+  Validation-ScenarioGen/VOL_SCALING_REPL_RAT
+  Validation-ScenarioGen/VOL_SCALING_STD_RAT
+  Validation-ScenarioGen/ValueExpression
+  Validation-VcvGen/Commodity_VCV_CFC_BIASED
+  Validation-VcvGen/Commodity_VCV_CFC_BIASED_AZM
+  Validation-VcvGen/Commodity_VCV_CFC_FR
+  Validation-VcvGen/Commodity_VCV_CFC_FR_AZM
+  Validation-VcvGen/Commodity_VCV_CFC_UNBIASED
+  Validation-VcvGen/Commodity_VCV_CFC_UNBIASED_AZM
+  Validation-VcvGen/Commodity_VCV_GBM_BIASED
+  Validation-VcvGen/Commodity_VCV_GBM_BIASED_AZM
+  Validation-VcvGen/Commodity_VCV_GBM_FR
+  Validation-VcvGen/Commodity_VCV_GBM_FR_AZM
+  Validation-VcvGen/Commodity_VCV_GBM_UNBIASED
+  Validation-VcvGen/Commodity_VCV_GBM_UNBIASED_AZM
+
     
+** rev 13017,13018: ExtendedBinaryScenarioManifestDump removed
+** rev 13028: UseSettlementDatesForScenarioOutput replaced by ModelsToOutputSettlementDates, following test cases updated:
+    Bugs/ACR103929_Export_CM_Incr
+    Bugs/ACR124756_CFC_SingleStep
+    ClientData/koch_Aug2004
+    ClientData/texaco_Mar2005
+    FunctionTests/outputSettlementDates_CommodityRF
+    PricingEngine/HWBS_Estimation
+    PricingEngine/HWBS_Generation
+    Validation-MATLAB/TIME_DEP_CFC
+** DONE update definition.xml and deprcatedconfigs files. rev 13029
+   DEADLINE: <2012-02-14 Tue>
+* ACR00185917 remove config vars AllowPre460InterpolationExtrapolation and ASEValidateDeprecatedConfigVariables
+** rev 13042:AllowPre460InterpolationExtrapolation
+** rev 13047:ASEValidateDeprecatedConfigVariables
+** rev 13062:MatchBaseline_454_460
+   ASE-Utility/CacheEstimation
+   ASE-Utility/ComponentInfo
+   ASE-Utility/ScenGenFromBinCache
+   ASE-Utility/ScenarioGeneration
+   ASE-Utility/ScenarioUpdate
+   ClientData/ge_Aug2003
+   ClientData/koch_Aug2004
+   Database/dateFormat_DB2
+   Database/dateFormat_MSSQL
+   Database/dateFormat_Oracle
+   Database/dbDmpMultipleFlags_MSSQL
+   Database/dbDmpWildCards_MSSQL
+   FunctionTests/454_460_Interpolation
+   FunctionTests/ScenUpdateAfterGenFail
+   PBApiTests/Config_ModelParam
+   PBApiTests/Config_ExportUserTriggers
+   Validation-CacheEst/PCA_CODEP_LEVEL
+   Validation-MATLAB/Dist_BMSS_ComSoboStand
+   Validation-MATLAB/Dist_CommodityForward
+   Validation-MATLAB/HW2F_EBS_CFC_INCR
+   Validation-MATLAB/HW2F_EBS_SOBOL
+   Validation-ScenarioGen/BASIC_REG_GBM_GBM
+   Validation-ScenarioGen/HW2F_EBS_CFC_INCR
+   Validation-ScenarioGen/HW2F_EBS_SOBOL
+   Validation-ScenarioGen/PCA_block_level
+** NumberOfRiskFactorsBeforeWarning: already removed
+** rev 13064:ScenarioOutputPrecision, StatisticsOutputPrecision and xASEIntermediateValuePrecision -> OutputPrecision
+   following test cases updated:
+   ACR143215_NoDataEst, ACR150200_T0trigger, ACR174607_EwmaScalingExcludeRfsWithZeroVolatility, ACR175321_DropRFFromSimpleReturnWithEWMA, ACR181553_ScenarioRFInfoInSameLine, ACR99827_DumpHistoricalIncrements, SplitLineCSVScenario_ACR00153169, 423_MatrixGen_Compatibility, DefaultParamHW2F, Endianess_Fixing, HW2F_EBS_CFC_TRANSFROMATION, NoArb_ModelLevelOutputType, ParalleGeneration, ReadCSVScenario, RiskNeutralRelativeScenOut-HBS, RiskNeutralRelativeScenOut-HW2F_AF_HBS, RiskNeutralRelativeScenOut, HWBS_Estimation, HWBS_Generation, Cond_Scen_Est_Basic_GBM, Cond_Scen_Est_Basic_GBMNI_AZM, Cond_Scen_Est_JOINT_GN_GLN_AZM, Cond_Scen_Est_JOINT_and_PARTIAL_GBM_GBMNI, Cond_Scen_Est_NORM_GBM_GBMNI, Cond_Scen_Est_NORM_GN_GLN_AZM, CubicSplineMean_FX, CubicSplineMean_IRUSD, Est_BK_DiffEstPeriod, Est_PortPCA_Cod_SubVarMap, Est_SocGen_0mean_OrthMatrix, Est_SocGen_DiffEstPeriod, Estim_BK_DefaultParameters, Estim_BK_Parameters, Estim_MRN_Parameters, Estim_MRNormal_Ergodic, Estim_MR_PCANormal_OrthMatrix, Estim_SocGen_355-365, Freq_month_gn, Freq_week_gbm, Freq_year_bk, GrowthLN_DiffEstPeriod_Est, GrowthLogNormal_Estimation, GrowthNormal_Estimation, HW2F_EBS_CFC_EST, HW2F_EBS_MER_EST, MeanCubicSpline0sigma_IRUSD, PCA_CODEP_LEVEL, PortfolioPCA_Block_Estimation, StandardPCA_Block_Estimation, Marginal_T_Distribution, CASHBOND_MS, CASHBOND_SS, DEFL_TEST_MS, DEFL_TEST_SS, Dist_BK-Mean, Dist_BK_DiffEstPeriod, Dist_BMSS_ComSoboStand, Dist_BMSS_Mean_SoboStand, Dist_BMSS_Mean_Stand, Dist_BM_Mean_Stand, Dist_BlackKarasinski, Dist_BlackKarasinski_Default, Dist_CommodityForward, Dist_GBMSS_ComSoboStand, Dist_GBMSS_Mean_SoboStand, Dist_GBMSS_Mean_Stand, Dist_GBM_Mean_Stand, Dist_MR-Normal-Mean, Dist_MeanReversionNormal, Dist_SocGen_355-365, Dist_SocGen_DiffEstPeriod, HW2F_EBS_CFC_INCR, HW2F_EBS_GLOBAL_PCA, HW2F_EBS_INCR_STAT, HW2F_EBS_NUMERAIRE, HW2F_EBS_RF, HW2F_EBS_RISK_NEUTRALITY, HW2F_EBS_SOBOL, HW2F_HBS_INCR, HW2F_HBS_RF, HW2F_HBS_RISK_NEUTRALITY, HW2F_HBS_ST_VARIANCE, INCR_RN_MS_EST, INCR_RN_MS_NO_EST, INCR_RN_SS_EST, INCR_RN_SS_NO_EST, NO_ARB_EQ_MS, NO_ARB_EQ_SS, NO_ARB_FX_MS, NO_ARB_FX_SS, NO_ARB_IR_MS, NO_ARB_IR_SS, RISK_NEUTRALITY_MS_EST, RISK_NEUTRALITY_MS_NO_EST, RISK_NEUTRALITY_NO_ARB_MS, RISK_NEUTRALITY_NO_ARB_SS, RISK_NEUTRALITY_SS_EST, RISK_NEUTRALITY_SS_NO_EST, SOBOL_noBrownBridge, ScenDist_GrowLgNorm_RegVCV_0Mn, ScenDist_GrowNorm_RegVCV_0Mean, ScenDist_GrowthLN_DiffEstPeriod, ScenarioDist_BM_RegVCV_ZeroMean, ScenarioDist_GBMSS_RegVCV_ZeroMean, ScenarioDist_GBM_RegVCV_ZeroMean, TIME_DEP_BK_SS, TIME_DEP_CFC, TIME_DEP_GLN_SS, TIME_DEP_GN_MS, TIME_DEP_MRN_MS, CFC_time_rolling, CMF_Terms, HW2F_EBS_CFC_INCR, HW2F_EBS_CFC_SCEN, HW2F_EBS_PCA_Accuracy_Interval, HW2F_EBS_SOBOL, HW2F_EBS_TIME_DEP, HW2F_HBS_SPECIAL_CASES, ITCopulaGeneration, MarginalDistribution_EstimationGeneration, Moment_matching_EBS, RN_DividendYield, SOBOL_BrownBridge, SOBOL_noBrownBridge, ScenarioDist_Normal_Rank, VOL_SCALING_1X1_DIFF, VOL_SCALING_1X1_RAT, VOL_SCALING_COMPL_RAT, VOL_SCALING_REPL_RAT, VOL_SCALING_STD_RAT, Marginal_T_Distribution, Stat_hist_scen, Stat_mc_scen, Stat_miss_data, Stat_negchk, Stat_raw_data, Stat_zero_coup_conv, BM_VCV_RM_ZeroMean_ZeroInitialValue, BM_VCV_RM_non0Mean_0InVal, BM_VCV_Reg_NonZeroMean, BM_VCV_Reg_zeroMean, Commodity_VCV_CFC_BIASED, Commodity_VCV_CFC_BIASED_AZM, Commodity_VCV_CFC_FR, Commodity_VCV_CFC_FR_AZM, Commodity_VCV_CFC_UNBIASED, Commodity_VCV_CFC_UNBIASED_AZM, Commodity_VCV_GBM_BIASED, Commodity_VCV_GBM_BIASED_AZM, Commodity_VCV_GBM_FR, Commodity_VCV_GBM_FR_AZM, Commodity_VCV_GBM_UNBIASED, Commodity_VCV_GBM_UNBIASED_AZM, EWMA_VCV_biased_zero_false, Extrapolation_BM_Reg, GBM_VCV_RM_ZeroMean_ZeroInitialValue, GBM_VCV_RM_non0Mean_0InVal, GBM_VCV_Reg_zeroMean, GBMwoItoVCV_RM_0Mean_0InVal, GBMwoItoVCV_RM_non0mean_0InVal, GBMwoIto_VCV_Reg_zeroMean, GrowLogNormVCV_RM_non0mea0InVa, GrowthLogNormal_VCV_Reg_zeroMean, GrowthNormVCV_RM_0Mean_0InVal, GrowthNormal_VCV_Reg_zeroMean, GrthLgNormVCV_RM_0Mn_0InVal, MRNorm_Ergodic_VCVReg_non0Mn, SocGen_VCV_Reg_non0Mean, Zero_coupon_conv_Algo00_cont, Zero_coupon_conv_Algo01_annu, Zero_coupon_conv_Algo01_semi, Zero_coupon_conv_Algo01_smp, ACR143215_NoDataEst, ACR150950_NoEQWithCFC, ACR174607_EwmaScalingExcludeRfsWithZeroVolatility, ACR175321_DropRFFromSimpleReturnWithEWMA, 423_MatrixGen_Compatibility, HW2F_EBS_CFC_TRANSFROMATION, ScenarioShreding, Cond_Scen_Est_Basic_GBM, Cond_Scen_Est_Basic_GBMNI_AZM, Cond_Scen_Est_JOINT_GN_GLN_AZM, Cond_Scen_Est_JOINT_and_PARTIAL_GBM_GBMNI, Cond_Scen_Est_NORM_GBM_GBMNI, Cond_Scen_Est_NORM_GN_GLN_AZM, Est_PortPCA_Cod_SubVarMap, Freq_month_gn, Freq_week_gbm, Freq_year_bk, HW2F_EBS_CFC_EST, PCA_CODEP_LEVEL, PortfolioPCA_Block_Estimation, StandardPCA_Block_Estimation, Marginal_T_Distribution, HW2F_EBS_CFC_INCR, HW2F_EBS_GLOBAL_PCA, HW2F_EBS_SOBOL, SOBOL_noBrownBridge, CFC_time_rolling, CMF_Terms, HW2F_EBS_CFC_INCR, HW2F_EBS_CFC_SCEN, HW2F_EBS_PCA_Accuracy_Interval, HW2F_EBS_SOBOL, ITCopulaGeneration, MarginalDistribution_EstimationGeneration, RN_DividendYield, SOBOL_BrownBridge, SOBOL_noBrownBridge, Marginal_T_Distribution, Stat_hist_scen, Stat_mc_scen, Stat_miss_data, Stat_negchk, Stat_raw_data, Stat_zero_coup_conv, Commodity_VCV_CFC_BIASED, Commodity_VCV_CFC_BIASED_AZM, Commodity_VCV_CFC_FR, Commodity_VCV_CFC_FR_AZM, Commodity_VCV_CFC_UNBIASED, Commodity_VCV_CFC_UNBIASED_AZM, Commodity_VCV_GBM_BIASED, Commodity_VCV_GBM_BIASED_AZM, Commodity_VCV_GBM_FR, Commodity_VCV_GBM_FR_AZM, Commodity_VCV_GBM_UNBIASED, Commodity_VCV_GBM_UNBIASED_AZM, EWMA_VCV_biased_zero_false, Zero_coupon_conv_Algo00_cont, Zero_coupon_conv_Algo01_annu, Zero_coupon_conv_Algo01_semi, Zero_coupon_conv_Algo01_smp
+** rev 13093:Change default value of OutputPrecision from 6 for scenario and 8 for matrix to be one value of 6, following test cases updated:
+   CacheEstimation,CacheStatistics,DataReport,GetRiskFactorNames,GetScenarioSetNames,GetTriggers,MatrixGeneration,ModelParam,ScenGenFromBinCache,ScenarioGeneration,ScenarioManifest,ScenarioUpdate,SetTriggers,ACR101127_CacheEstimation_Kurtosis_Output,Csv_VCV_Format,StudentTDOI_Cache,Student-t_Gaussian_copula,StudentTDofEstimationParams,CubicSplineMean_FX,CubicSplineMean_IRUSD,Est_BK_DiffEstPeriod,Est_PortPCA_Cod_SubVarMap,Est_SocGen_0mean_OrthMatrix,Est_SocGen_DiffEstPeriod,Estim_BK_DefaultParameters,Estim_BK_Parameters,Estim_MRN_Parameters,Estim_MRNormal_Ergodic,Estim_MR_PCANormal_OrthMatrix,Estim_SocGen_355-365,Freq_month_gn,Freq_week_gbm,Freq_year_bk,GrowthLN_DiffEstPeriod_Est,GrowthLogNormal_Estimation,GrowthNormal_Estimation,HW2F_EBS_CFC_EST,HW2F_EBS_MER_EST,MeanCubicSpline0sigma_IRUSD,NonUniformEstimationFrequencies,NonUniformEstimationPeriods,PCA_CODEP_LEVEL,PortfolioPCA_Block_Estimation,StandardPCA_Block_Estimation,Marginal_T_Distribution,MarginalDistribution_EstimationGeneration,MatrixGeneration,ACR118296_Mean_Values_VCV_Format,ACR122600_ZeroCoupon,ACR136202_NoEst_MatrixGen,ACR136467_Server00,ACR143215_NoDataEst,ACR144387_Overlapping_Period,ACR83121-Server00_Wrong_Date,ACR99827_DumpHistoricalIncrements,423_MatrixGen_Compatibility,BiasedEWMAMean,EconomicCapitalIntegration,MatrixExport_SimMat_MatGen,MatrixGen_SimulationMatrix_MatrixFormat,Reg_RM_MeanValues,SI_SMOKETEST,SimulationMatrix_AllCopulas,TiltMatrix_for_MeanRevPCA,ZValue,BM_OU_RN_Estimation,HW2F_EBS_CFC_EST,T_COPULA
+* ACR00186379 Clean up config vars - remove BetaFileVersionNumber, BinaryCachePriority, CSVCachePriority and *PreprocessorPriority
+** BetaFileVersionNumber, BinaryCachePriority and CSVCachePriority
+** ConstantValuePreprocessorPriority, InterpolationPreprocessorScore, NegativeValuePreprocessorPriority, NonPositiveValuePreprocessorPriority, PromptnessNodesPreprocessorPriority, StandardNodesPreprocessorPriority, ValueExprPreprocessorPriority, CreditSpreadConverterPriority, ZeroCouponConverterPriority, DailyRateConverterScore
+** rev 13074  
+* updated list of config vars
+** Configuration variables that are used in ASE 4.8.0 code
+   | Configuration Variable                                            | Type       | Default Value                  | Description                       |
+   |-------------------------------------------------------------------+------------+--------------------------------+-----------------------------------|
+   | .daysToExpire                                                     | int        | 30                             | license                           |
+   | ___userSpecifiedConfigFile                                        | path       |                                |                                   |
+   | Algo00NC_AnnualThreshold                                          | double     | 365.1                          |                                   |
+   | Algo00NC_OffsetForDays                                            | double     | 0.9                            |                                   |
+   | Algo00NC_OffsetForYears                                           | double     | 0.015                          |                                   |
+   | AllowExtrapolationFromNonBusinessDays                             | bool       | false                          |                                   |
+   | ApiLogVerbosity                                                   | string     | MINOR                          |                                   |
+   | ASE_${ComponentDbServerType}                                      | string     |                                | .so file name                     |
+   | ASE_WWW_PATH                                                      | path       | $ASE_WWW_PATH                  |                                   |
+   | ASEDLMExtension                                                   | string     |                                |                                   |
+   | ASELeaseCapacity                                                  | int        | 1                              |                                   |
+   | BaseCurrency                                                      | string     | USD                            |                                   |
+   | BetaEigenValueThreshold                                           | double     | 1.0e-6                         |                                   |
+   | BinaryEndianType                                                  | string     | LittleEndian                   |                                   |
+   | BinaryFileMinSize                                                 | int        | 500M                           |                                   |
+   | BinaryFileSize                                                    | string     | 2G                             |                                   |
+   | BMCorrelatorCreatorScore                                          | int        | 1                              | to be removed                     |
+   | BusDaysInEstimation                                               | int        | 255                            |                                   |
+   | BusDaysInSimulation                                               | int        | 255                            |                                   |
+   | CacheHistoricalScenarios                                          | bool       | true                           |                                   |
+   | CacheMixtureOfNormal                                              | bool       | false                          |                                   |
+   | CachePCA                                                          | bool       | false                          |                                   |
+   | CalendarDir                                                       | path       | ./                             | duplicate                         |
+   | CalendarDir                                                       | string     | ./                             | duplicate                         |
+   | CombinedCorrelatorCreatorScore                                    | int        | 0                              |                                   |
+   | CommodityCMFGroupName                                             | string     | commodityCMF_data              |                                   |
+   | CommodityGroupName                                                | string     | commodity_data                 |                                   |
+   | CompDBConversionFile                                              | path       | ../cfg/ASECompConversion.xml   |                                   |
+   | ComponentDbDatabaseName                                           | string     |                                |                                   |
+   | ComponentDbServerName                                             | string     |                                |                                   |
+   | ComponentDbServerType                                             | string     |                                |                                   |
+   | ComponentDbSinkFile                                               | path       | ${ComponentDbSourceFile}       |                                   |
+   | ComponentDbSinkType                                               | string     | None                           |                                   |
+   | ComponentDbSourceFile                                             | path       | component                      |                                   |
+   | ComponentDbSourceFile                                             | path       | compDB                         |                                   |
+   | ComponentDbSourceType                                             | string     | Binary                         |                                   |
+   | ComponentRecoveryDir                                              | string     | ${ALGO_TOP}/temp               |                                   |
+   | CreditSpreadGroupName                                             | string     | creditspread_data              |                                   |
+   | crossOverYear                                                     | int        | 50                             |                                   |
+   | database                                                          | string     | empty                          |                                   |
+   | DatabaseName                                                      | string     |                                |                                   |
+   | DatabaseSinkType                                                  | string     | None                           |                                   |
+   | DatabaseType                                                      | string     | Binary                         |                                   |
+   | DebugDir                                                          | string     | ./                             |                                   |
+   | DebugIncomingRequest                                              | bool       | false                          |                                   |
+   | DebugLogServerHTTPCommunication                                   | bool       | false                          |                                   |
+   | DebugServerReply                                                  | bool       | false                          |                                   |
+   | DecayFactor                                                       | int        | 400                            |                                   |
+   | DefaultInterpolationOrder                                         | string     |                                |                                   |
+   | DefaultIRDayCountBasis                                            | double     | 365.0                          |                                   |
+   | DefaultNumOfPC                                                    | int        | 2                              |                                   |
+   | DefaultSeed                                                       | long       | 123456                         |                                   |
+   | DirName                                                           | path       | ./                             |                                   |
+   | DisableUnificationForCovDecomposition                             | bool       | false                          |                                   |
+   | DomainNameExtension                                               | string     | empty                          |                                   |
+   | EigenValueThreshold                                               | double     | 1e-12                          |                                   |
+   | EnableLegacyUnificationForCovDecomposition                        | bool       | false                          |                                   |
+   | EnableMeanFunctionDump                                            | bool       | false                          |                                   |
+   | EnableMultiStepStandardShift                                      | bool       | false                          |                                   |
+   | EnableScenarioCsvCaching                                          | bool       | false                          |                                   |
+   | Epsilon                                                           | double     | 10e-8                          |                                   |
+   | EquityGroupName                                                   | string     | equity_data                    |                                   |
+   | EstimationCacheDir                                                | path       | ./                             |                                   |
+   | EWMAUnknownOldCal                                                 | bool       | false                          |                                   |
+   | ForeignExchangeGroupName                                          | string     | fx_data                        |                                   |
+   | GenerateLargeScenarioSet                                          | bool       | true                           |                                   |
+   | GenLibDump                                                        | bool       | false                          |                                   |
+   | GenLibDumpPath                                                    | path       | ./                             |                                   |
+   | ImpliedVolatilityGroupName                                        | string     | iv_data                        |                                   |
+   | InputsValidationType                                              | string     | strict                         |                                   |
+   | InterestRateGroupName                                             | string     | ir_data                        |                                   |
+   | InterpolationMethod                                               | string     | L (Linear)                     |                                   |
+   | LogControllerConfig                                               | stringlist |                                |                                   |
+   | LogFilePrefix                                                     | path       |                                |                                   |
+   | LoggerType                                                        | string     | FileLogger                     |                                   |
+   | LogMessageFormatter                                               | string     | DefaultFormater                |                                   |
+   | LogServiceName                                                    | string     | empty                          |                                   |
+   | MacroFactorGroupName                                              | string     | macro_factor                   |                                   |
+   | MarketIndexGroupName                                              | string     | market_data                    |                                   |
+   | MaxRelativeError                                                  | double     | 0.05                           |                                   |
+   | MeanFunctionDayCountScale                                         | int        | 365                            |                                   |
+   | MeanFunctionDumpInfo                                              | struct     |                                |                                   |
+   | MetaDataSource                                                    | string     | FileMetaDataSource             |                                   |
+   | ModelsToOutputSettlementDates                                     | string     | empty                          |                                   |
+   | MultiThreadImitationOn                                            | bool       | false                          |                                   |
+   | NoArbFactorsRelationship                                          | string     | ExtendedHWBSFactors            |                                   |
+   | NoArbitrageRelationship                                           | string     | ImpliedBlackVolatilityCurve    |                                   |
+   | NoArbStochasticVarRelationship                                    | string     | StochasticVarianceFactor       |                                   |
+   | NoContractsNotRolling                                             | int        | 0                              |                                   |
+   | NoCorrelatorCreatorScore                                          | int        | 2                              |                                   |
+   | NonIncrementalSpreadConversion                                    | switch     | true                           |                                   |
+   | NonMarketGroupName                                                | string     | non_market_data                |                                   |
+   | NumberOfNodesForPromptPreprocessor                                | int        | ~0                             |                                   |
+   | NumberOfPCUseForSobol                                             | int        | 40                             |                                   |
+   | NumberOfRequestProcessorInSystem                                  | int        | 2                              |                                   |
+   | NumberOfThreadsForCovarDecomp                                     | int        | 0                              |                                   |
+   | NumberOfThreadsInMCGeneration                                     | int        | 3                              |                                   |
+   | NumberOfThreadsInOUDecomposition                                  | int        | 1                              |                                   |
+   | NumberOfThreadsInSystem                                           | int        | 3                              |                                   |
+   | OUCorrelatorCreatorScore                                          | int        | 1                              |                                   |
+   | OutputBetaHeader                                                  | bool       | true                           |                                   |
+   | PreserveRfMappingsAtBinCompose                                    | bool       | false                          |                                   |
+   | PromptnessScenarioAxisName                                        | string     | Settlement Date                |                                   |
+   | RandomNumberGeneratorName                                         | string     | empty                          |                                   |
+   | RestoreNonIncrementalCreditSpreadInMCScenarios                    | bool       | false                          |                                   |
+   | RiskFactorSanityCheck                                             | bool       | true                           |                                   |
+   | RiskMetricsConversion                                             | double     | 165.0                          |                                   |
+   | RLM_LICENSE                                                       | string     | empty                          |                                   |
+   | RMAcceptableCount                                                 | int        | 400                            |                                   |
+   | RMAssumeZeroMean                                                  | bool       | false                          |                                   |
+   | RMConfigFileName                                                  | path       | RMLinks.cfg                    |                                   |
+   | RMCriticalCount                                                   | int        | 0                              |                                   |
+   | RMTimeWindowAdjustment                                            | int        | 1                              |                                   |
+   | RollingNearbyDefault                                              | bool       | true                           |                                   |
+   | RWVaRMapFileDateFormat                                            | string     | %Y%m%d                         |                                   |
+   | RWVaRMapFilePath                                                  | path       | ${ASE_CONFIG_PATH}             |                                   |
+   | RWVaRMapMissingRFIgnored                                          | switch     | false                          |                                   |
+   | ScenarioEquityAttribute                                           | string     | SpotPrice                      |                                   |
+   | ScenarioOutputThreads                                             | int        | env MACHINECPU 8               |                                   |
+   | ScenarioOutputType                                                | string     | Model-Dependent                |                                   |
+   | ScenarioPoolSize                                                  | int        | 80                             |                                   |
+   | ServerConfigDefaultPort                                           | int        | 8080                           |                                   |
+   | ServerLogFile                                                     | string     | ./                             |                                   |
+   | ServerMappingDir                                                  | path       | ./                             |                                   |
+   | ServerName                                                        | string     |                                |                                   |
+   | ServerType                                                        | string     |                                |                                   |
+   | SERVICE_NAME("default").connection (retries, delay)               | int        | retrieved from algocxx         |                                   |
+   | SessionAutoSave                                                   | int        | 0                              |                                   |
+   | SessionCleanupInterval                                            | int        | 600                            |                                   |
+   | SessionDate                                                       | date       | ~0                             |                                   |
+   | SessionExpiryPeriod                                               | int        | 3600                           |                                   |
+   | ShowAdjustedRollPriceIntermediateValues                           | bool       | false                          |                                   |
+   | ShowNonViewableIntermediateValues                                 | bool       | false                          |                                   |
+   | SingularValueTolerance                                            | double     | 1.0e-5                         |                                   |
+   | SortVCVOutputByRiskFactorName                                     | bool       | false                          |                                   |
+   | SplitScenarioGeneration                                           | bool       | false                          |                                   |
+   | StatisticStdThreshold                                             | double     | 1.0*10e-8                      |                                   |
+   | SubThreadStackSize                                                | int        | 0                              | determine_machine_stacksize()     |
+   | SystemThreadPoolQueueSize                                         | int        | 2000                           |                                   |
+   | TimeStampFormat                                                   | string     | <%s %s>: %s                    |                                   |
+   | UnicodeEncoding                                                   | string     |                                |                                   |
+   | UseBaseScenario                                                   | switch     | true                           |                                   |
+   | UseBlasForCovarMatUpdate                                          | bool       | false                          |                                   |
+   | useBrownianBridgeForMultiStepBMPathConstructionFromSobolSequences | bool       | false                          |                                   |
+   | UseDirectInterpolation                                            | bool       | false                          |                                   |
+   | UseLinearTimeScalingForMarginalDistributionMean                   | bool       | false                          |                                   |
+   | UseOldBinaryFileNamingConvention                                  | bool       | false                          |                                   |
+   | UseOldPriceVolatilityMethod                                       | bool       | false                          |                                   |
+   | UseRecordAddTransactionMode                                       | bool       | true                           |                                   |
+   | UserInputDir                                                      | path       | ./                             |                                   |
+   | UserModelConfigFile                                               | string     | ${ASE_HOME}/cfg/UserModels.cfg |                                   |
+   | UseUnbiasedEwmaMeanForRMEstimation                                | bool       | false                          |                                   |
+   | VaRMapFileRegExp                                                  | string     |                                |                                   |
+   | VCVDecompositionAlgorithm                                         | string     | empty                          |                                   |
+   | xASE_gl55And24LaggedFibonacciRnGen                                | bool       | false                          |                                   |
+   | xASE_isGLServerAvailable                                          | bool       | false                          |                                   |
+   | xASEAlgoFormatFilterCommand                                       | string     |                                | command line to run the converter |
+   | xASEAllowUseOfYieldCurveCalibrationTermFromAlgo0xAsShortRateProxy | bool       | false                          |                                   |
+   | xASEBetaNoSpaceFileName                                           | bool       | false                          |                                   |
+   | xASECCTBackupWarningMessageSource                                 | string     | empty                          |                                   |
+   | xASECCTDumpUpdatedCompName                                        | string     |                                |                                   |
+   | xASECCTDumpUpdatedCompTypes                                       | stringlist |                                |                                   |
+   | xASECCTMR_BlockType                                               | string     | Database                       |                                   |
+   | xASECCTMR_CompositeModelType                                      | string     | MonteCarlo Scenario Generator  |                                   |
+   | xASECCTMR_ModelType                                               | string     | Mean Reversion - PCA Normal    |                                   |
+   | xASECCTMRFilesReg                                                 | string     |                                |                                   |
+   | xASECCTRMIDRegExp                                                 | string     |                                |                                   |
+   | xASECCTTodayReg                                                   | string     |                                |                                   |
+   | xASECCTUsingIntermediateValuesMap                                 | bool       | true                           |                                   |
+   | xASECSVCurveAttr                                                  | string     | Surface                        |                                   |
+   | xASEDBBlobSize                                                    | int        | 32<<10 (32K)                   |                                   |
+   | xASEDBCacheSize                                                   | int        | 100000                         |                                   |
+   | xASEDBPartitionSize                                               | int        | 10000                          |                                   |
+   | xASEDumpDBSinkToFiles                                             | string     | empty                          |                                   |
+   | xASEDumpDBSourceToFiles                                           | string     | empty                          |                                   |
+   | xASEDumpOldComponentWhenLoading                                   | bool       | false                          |                                   |
+   | xAseEnable460HW2F_EBSModel                                        | bool       | false                          |                                   |
+   | xASEInitSQL                                                       | string     | empty                          |                                   |
+   | xASELoadIgnoreEmptyLine                                           | bool       | true                           |                                   |
+   | xASELogCompDBTransactionFile                                      | string     | empty                          |                                   |
+   | xASELogDBTransactionFile                                          | string     | empty                          |                                   |
+   | xASELookupForceReRegister                                         | bool       | false                          |                                   |
+   | xASELookupMinimalRenewTime                                        | int        | 1                              |                                   |
+   | xASELookupRenewDebug                                              | bool       | false                          |                                   |
+   | xASEMatchBaseLineTargetVersion                                    | string     | empty                          |                                   |
+   | xASEMimicGUI_DumpRequest                                          | string     | empty                          |                                   |
+   | xASEMTScenarioOutput                                              | bool       | true                           |                                   |
+   | xASEMTTimeSeriesLoading                                           | bool       | false                          |                                   |
+   | xASESecurity_TestDomain                                           | string     | algosuite-basic                |                                   |
+   | xASEShredValueMatch                                               | int        | 1                              |                                   |
+   | xASESupportMultipleEstimationPeriod                               | bool       | false                          |                                   |
+   | xASETCPRecvBufSize                                                | int        | 0                              |                                   |
+   | xASETCPSendBufSize                                                | int        | 0                              |                                   |
+   | xASETSCacheSize                                                   | int        | 100                            |                                   |
+   | xASEUseAbsoluteEigenvalueClusterMethod                            | bool       | false                          |                                   |
+   | xASEUseFixedFloatOutput                                           | bool       | false                          |                                   |
+   | xASEXMLReserverRatio                                              | int        | sprc 10; other 0               |                                   |
+   | yASESecurity_TestDomain                                           | string     | algosuite-test                 |                                   |
+   | ZeroTermApproximationForShortRate                                 | double     | 1.0e-6                         |                                   |
+  
+
+* ACR00186954 Clean up config vars - remove BMCorrelatorCreatorScore, CombinedCorrelatorCreatorScore, DefaultSeed,DomainNameExtension, GenerateLargeScenarioSet, GenLibDump, GenLibDumpPath, LogFilePrefix, 
+** rev 13124: BMCorrelatorCreatorScore, CombinedCorrelatorCreatorScore, DefaultSeed, DomainNameExtension, GenerateLargeScenarioSet, GenLibDump, GenLibDumpPath, LogFilePrefix, 
+* ACR00187101 Clean up config vars - remove Epsilon, MetaDataSource, NoArbFactorsRelationship, NoArbitrageRelationship, NoArbStochasticVarRelationship, NoCorrelatorCreatorScore,OUCorrelatorCreatorScore
+  rev 13136, 13137
+  rev 13168: revert the changes made to Epsilon as we still need it, keep it as interanl
+* Fix ASEUtilites test failure due to upgrading ASE from 0017 to 0042
+  - Convert and ComposeRiskfactors can be fixed easily by updating the calendar name in baseline (Standard -> Default)
+  - ComposeTriggers and Concat need calendar info, while curretly ASE removed fallback calenar (SatSundayOnly)
+  - The problem is ASE is now using CalendarDir, while ASEUTILITIES doesn't read any config. Checked with Mourad, we may need to add an option to indicate where the calendars are. This will be done lately.
+  - UtilServicer::initCalendar() -> AlgoASE::InstallCalendarSpecsFrom() can take the setting of CalendarDir.
+* ACR00187278 remove OutputBetaHeader, PromptnessScenarioAxisName, RiskFactorSanityCheck, SessionCleanupInterval, UseDirectInterpolation, ComponentRecoveryDir
+  - rev 13152,13153 OutputBetaHeader, PromptnessScenarioAxisName, RiskFactorSanityCheck,
+  - rev 13163,13164 SessionCleanupInterval, UseDirectInterpolation, ComponentRecoveryDir

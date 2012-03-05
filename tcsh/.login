@@ -23,12 +23,12 @@ case "SunOS i386":
   setenv ORACLE_HOME /mnts/dbms//Oracle-11.2.0.1/solaris-i386-2.10-64
 	breaksw
 case "Linux x86_64":
-	setenv MYCOMPILER gcc-4.3.3
+	setenv MYCOMPILER gcc-4.6.2
   setenv ORACLE_HOME /mnts/dbms/Oracle-11.2.0.1/linux-x86_64-2.6-64
   setenv LD_LIBRARY_PATH ${MYOPT}/wx/2.12/lib:${MYOPT}/codeblock/lib
 	breaksw
 case "AIX powerpc":
-	setenv MYCOMPILER gcc-4.1.2
+	setenv MYCOMPILER gcc-4.6.2
   setenv ORACLE_HOME /mnts/dbms//Oracle-11.2.0.1/aix-ppc-5.3
 	breaksw
 endsw
@@ -103,13 +103,8 @@ else
 endif
 endif
 
-# redirect putty gui to titans
-if ($RHOST == "torrayc") then
-  setenv DISPLAY titans:10
-endif
-
 # temporarily setting
-if ($HOST != "titans") then
+if ($HOST != "titans" && $RHOST != ca0d0346) then
   setenv DISPLAY titans:10
 endif
 

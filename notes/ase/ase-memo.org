@@ -49,3 +49,11 @@
 
 * Change management
   promote: /mnts/cdstools/share/bin/promote ASEUtilities 4.7.0 0079
+* CVS SVN account
+  regular unix authentication
+  | product   | platform | url                                            |
+  |-----------+----------+------------------------------------------------|
+  | ASE       | Windows  | http://algosvn/svn/ASE/branches/4.7.0          |
+  | ASE       | Unix     | svn://algosvn/ASE/branches/4.7.0               |
+  | Utilities | Windows  | http://algosvn/svn/ASEUtilities/branches/4.7.0 |
+  | Utilities | Unix     | svn://algosvn/ASEUtilities/branches/4.7.0      |
