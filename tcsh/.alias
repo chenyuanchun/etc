@@ -23,6 +23,7 @@ alias startasb "cd ~/debug/asb; ~/ase/scripts/asbIt"
 
 # diffase buildno.1 buildno.2
 #alias diffase "cvs_diffbl -l ASE-4_7_0"
+alias runharness '/home/ase/TestSuite/scripts/runPersonalLTH.pl \!*'
 alias runaseharness '/home/ase/TestSuite/scripts/runPersonalLTH.pl --run $SOURCE/cmakebuild/ship/rhel-x86_64-5.2/ase-v4.7.0 \!*'
 alias runutilharness '/home/ase/TestSuite/scripts/runPersonalLTH.pl --product ASEUtilities --run $SOURCE/ASEUtilities-$ASE_VERSION/ship/$PLATFORM_WIDE/aseutilities-v'
 

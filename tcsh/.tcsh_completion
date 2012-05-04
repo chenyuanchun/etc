@@ -1,8 +1,8 @@
 #!/bin/tcsh
 
 set cdpath=( . \
-    $HOME \
-    $HOME/src470/ )
+    $SOURCE \
+    $TEMP/builds )
 
 if( $?tcsh ) then
 	set autolist
@@ -13,8 +13,8 @@ if( $?tcsh ) then
 
 	set noglob
 
-	set hosts=(titans oceanus medusa torsolca01 torsolca02 torsolca03 \
-      torlcn01 torlcn02 torlcn03 hathor)
+	set hosts=(titans oceanus torsolca01 torsolca02 torsolca03 \
+      torlcn01 torlcn02 torlcn03 torlcn04 torlcn05 torlcn06 hathor)
 
     complete ssh	n/*/\$hosts/	# argument from list in $hosts
     complete cd  	p/1/d/		# Directories only

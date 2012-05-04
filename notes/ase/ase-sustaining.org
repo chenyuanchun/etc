@@ -787,7 +787,7 @@
 
 * ACR00186954 Clean up config vars - remove BMCorrelatorCreatorScore, CombinedCorrelatorCreatorScore, DefaultSeed,DomainNameExtension, GenerateLargeScenarioSet, GenLibDump, GenLibDumpPath, LogFilePrefix, 
 ** rev 13124: BMCorrelatorCreatorScore, CombinedCorrelatorCreatorScore, DefaultSeed, DomainNameExtension, GenerateLargeScenarioSet, GenLibDump, GenLibDumpPath, LogFilePrefix, 
-* ACR00187101 Clean up config vars - remove Epsilon, MetaDataSource, NoArbFactorsRelationship, NoArbitrageRelationship, NoArbStochasticVarRelationship, NoCorrelatorCreatorScore,OUCorrelatorCreatorScore
+* ACR00187101 Clean up config vars - remove MetaDataSource, NoArbFactorsRelationship, NoArbitrageRelationship, NoArbStochasticVarRelationship, NoCorrelatorCreatorScore,OUCorrelatorCreatorScore
   rev 13136, 13137
   rev 13168: revert the changes made to Epsilon as we still need it, keep it as interanl
 * Fix ASEUtilites test failure due to upgrading ASE from 0017 to 0042
@@ -798,3 +798,75 @@
 * ACR00187278 remove OutputBetaHeader, PromptnessScenarioAxisName, RiskFactorSanityCheck, SessionCleanupInterval, UseDirectInterpolation, ComponentRecoveryDir
   - rev 13152,13153 OutputBetaHeader, PromptnessScenarioAxisName, RiskFactorSanityCheck,
   - rev 13163,13164 SessionCleanupInterval, UseDirectInterpolation, ComponentRecoveryDir
+* ACR00188299 ASE converts riskwatch generated scenarios very slowly
+  /mnts/buildarea13/pcre/mbenouar/ASE_clients/clientTests/Jeff/csvcache/scenariosASE.csv
+** mainly 3 issues are found during investigation:
+  1. ASE csv parser doesn't handle empty lines properly and when getting lines from input pool, ASE parser finds EOF mistakenly
+  2. CSV parser is executing in multiple threads, when one thread finds the number of required scenarios is reached, it doesn't stop other threads. Therefore, entire input file has to be parsed.
+  3. Main thread needs to sync up with the generation thread, before calling numOfScenarios() to get the number of scenarios in case of CSV scenario source
+** rev 13249, 13293, 13319. Gavin addressed the deadlock issue by terminating reading threads as well, rev 13267
+** ported to 4.7.0 	ACR00188365, rev 13262, 13289, 13291, 13311
+** test case added: Bugs/ACR188299_Read_RW_Generated_Scens
+* ACR00188615  Move dbtest, rwclient, mimicgui and validatecalendar to util/misc
+** test cases needing to update: FunctionTests/BrownianBridge_RWClient; mimicgui: Bugs/ACR99827_DumpHistoricalIncrements, FunctionTests/RiskNeutralRelativeScenOut-HW2F_AF_EBS;
+** rev 13294
+* differences between 4.7.0 and 4.8.0
+  | Items              | 4.8.0                  | 4.7.0                  |
+  |--------------------+------------------------+------------------------|
+  | Compiler           | SunCC-12.0.4/gcc-4.6.2 | SunCC-12.0.4/gcc-4.3.3 |
+  | Architecture       | 64bit                  | 64bit                  |
+  | GenLib             | 4.8.0                  | 4.7.0                  |
+  | CLAPACK            | 3.0p5                  | 3.0p1                  |
+  | SourcePro/Core     | n/a                    | E10u1p2                |
+  | SourcePro/DB       | n/a                    | E10u1p2                |
+  | SourcePro/Analysis | n/a                    | E10u1p2                |
+* ACR00189003 Bad dependency in ASEUtiltiies-4.8.0
+  rev. 322
+* test algosuite package on windows
+** report scripts - needs to escapse '>' and '<'
+** configure - class path issue, should look for getopt in ../../third-party-libs/java-getopt-1.0.9.jar, actually ../../lib
+** scenario-editor - The system cannot find the file \bin\asb.classpath.properties
+* Document review
+  - p36, TriggerFilter, not my cq, no idea, need to check with Gavin
+* .aserc searching path
+  [${ALGO_TOP}/cfg|.]:${ALGO_HOME}/cfg:${ASE_HOME}/cfg/:.:~
+* ACR00189905:In debug mode record all the commands issued to the server in the log file
+** the suggested solution is to add a new tag COMMANDLINE to carry the original command line
+** xml has to be single rooted, some options with single param are not modified. It should be fine for debug purpose since they only take simple param which can be easily checked in log file in xml format.
+** rev 13489, 13490
+* test scripts on windows - using the latest build 4.8.0/0087
+** commands
+   c:\temp\win32-x86_64-6.1\ase-v4.8.0\bin\scripts\runaseserver.bat -U algo -P password -R algosuite-test -p 43041
+
+   c:\temp\win32-x86_64-6.1\ase-v4.8.0\bin\generate.bat -s SS_MC_1 -f CSV -o .\test1
+   c:\temp\win32-x86_64-6.1\ase-v4.8.0\bin\cache.bat scenarioset -U algo -P password -R algosuite-test -m localhost -p 43041 -n SS_MC_1 --clear
+   c:\temp\win32-x86_64-6.1\ase-v4.8.0\bin\calibrate.bat codependent -U algo -P password -R algosuite-test -m localhost -p 43041 -s SS_MC_1 -f CSV -o .\ss1
+   c:\temp\win32-x86_64-6.1\ase-v4.8.0\bin\timeseries.bat export -U algo -Ppassword -Ralgosuite-test -C .aserc -d 2001/05/01-2001/05/10  dump
+   c:\temp\win32-x86_64-6.1\ase-v4.8.0\bin\report.bat timeseries-dataquality -U algo -P password -R algosuite-test -m localhost -p 43041 -b ForeignEx -o dataquality -l Standard
+   
+   c:\temp\win32-x86_64-6.1\ase-v4.8.0\util\scenario-correlations.bat -i test1.csv -m ss1SG_MC_1.SG_MC_1.Correlation.csv -o scen_cor
+   c:\temp\win32-x86_64-6.1\ase-v4.8.0\util\scenario-distribution.bat -i test1.csv -o scen_dist
+
+   %ase_home%\bin\timeseries.bat export -C aserc -U algo -P password -R algosuite-test -c %algo_home%\cfg\ConfigServer.cfg -d 2001/05/01-2001/05/10 dump
+** ACR00190960 timeseries failed on authentication in windows - rev 13566
+* ACR00191068 Add Test - for CSV scenario reading
+  
+* ACR00191524 MC_10 scenario baseline difference
+  1. As we talked, the session date from your .aserc doesn't seem to be correct, as the base scenario values are compliant with time series data on 2004/09/24 instead of 2001/12/31 (SessionDate set in .aserc). Please check if SI test script sets SessionDate somewhere (Ex. SetSessionDate through aseutility).
+2. With SessionDate changed to 2004/09/24, I did generation with build 4.8.0/0086. The outcome is different from your baseline and your outcome.
+3. The outcome of ASE 4.7.0/0905 matches your baseline.
+* ACR00191830 Generating a scenario set using TriggerFilter option has issues
+  rev. 13654
+* ACR00192324 UnwindPeriod for single step is being referred to as WindPeriod in the manual scenario set
+  rev. 13655
+* ACR00192739 RN scenarios - Only one IR curve shows up for selection
+  rev. 13659
+* ACR00192840 gcc 4.6.2 on solaris
+  /mnts/buildarea13/ase/astewart/ASE-4.8.0-svn
+* ACR00192421
+** There are 2 issues found in input time series data:
+   1. negative axis values in some risk factors
+   2. ir data used are inconsistent in terms, 20 terms on each day, but 801 intotal
+** reject the request if ScenarioOutputType is incompatible with particular model.  rev. 13665
+** issue can be reproduced with test cases: RiskNeutralRelativeScenOut-NoArb and RiskNeutralRelativeScenOut-Ebs
+   root cause is Ratio cannot apply to hwbs models

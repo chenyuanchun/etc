@@ -1,16 +1,17 @@
 #!/usr/bin/tcsh
 
 setenv HOST `hostname`
-setenv UNAME `uname -ps`
 setenv BUILD_AREA /mnts/buildarea13/ase/rayc
 setenv SOURCE $BUILD_AREA/src
 setenv TEMP $BUILD_AREA/temp
 setenv CVSROOT :pserver:cvstc:/cvstc
-set CDSTOOLS=/mnts/cdstools
 
-setenv PLATFORM `/mnts/cdstools/share/bin/getplatform`
-setenv PLATFORM_WIDE `( setenv WIDE_ARCH yes; /mnts/cdstools/share/bin/getplatform)`
-setenv MYOPT /mnts/buildarea13/ase/rayc/app/opt
+set CDSTOOLS=/mnts/cdstools
+set UNAME=`uname -ps`
+set MYOPT=$BUILD_AREA/app/opt
+
+setenv PLATFORM `${CDSTOOLS}/share/bin/getplatform`
+setenv PLATFORM_WIDE `( setenv WIDE_ARCH yes; ${CDSTOOLS}/share/bin/getplatform)`
 
 switch ("$UNAME")
 case "SunOS sparc":
@@ -36,21 +37,21 @@ endsw
 #  For Sybase 12
 #setenv SYBASE  /mnts/dbms/Sybase-12.5.1/$PLATFORM
 #setenv SYBASE_OCS OCS-12_5
-setenv JDK_HOME /mnts/cdstools/jdk-1.6.0/${PLATFORM}/
+setenv JDK_HOME ${CDSTOOLS}/jdk-1.6.0/${PLATFORM}/
 setenv JAVA_HOME $JDK_HOME
 
 
 set path = (. \
-    /home/rayc/bin \
-    /mnts/cdstools/share/bin \
+    $HOME/bin \
+    ${CDSTOOLS}/share/bin \
     $JDK_HOME/bin \
-    /mnts/cdstools/cmake-2.8.3/${PLATFORM_WIDE}/bin \
+    ${CDSTOOLS}/cmake-2.8.3/${PLATFORM_WIDE}/bin \
     ${CDSTOOLS}/subversion-1.6.17gr1/${PLATFORM_WIDE}/bin \
     ${CDSTOOLS}/git-1.7.1/${PLATFORM}/bin \
-    /mnts/cdstools/${PLATFORM_WIDE}/bin \
-    /mnts/cdstools/${PLATFORM}/bin \
-    /mnts/cdstools/${MYCOMPILER}/${PLATFORM_WIDE}/bin \
-    /mnts/cdstools/binutils-2.21/${PLATFORM_WIDE}/bin \
+    ${CDSTOOLS}/${PLATFORM_WIDE}/bin \
+    ${CDSTOOLS}/${PLATFORM}/bin \
+    ${CDSTOOLS}/${MYCOMPILER}/${PLATFORM_WIDE}/bin \
+    ${CDSTOOLS}/binutils-2.21/${PLATFORM_WIDE}/bin \
     /home/develop/bin/${PLATFORM} \
     /home/develop/bin \
     /sbin \
@@ -63,7 +64,7 @@ set path = (. \
     /usr/ucb \
     /usr/sbin \
     /usr/ccs/bin \
-    /mnts/cdstools/bison-2.3/${PLATFORM}/bin \
+    ${CDSTOOLS}/bison-2.3/${PLATFORM}/bin \
     /usr/bin/X11 \
 #    /opt/iona/bin \
 #    /opt/iona/orbix_art/1.0/bin \
@@ -76,7 +77,7 @@ set path = (. \
 #    /home/develop/Tools/distmake/solaris_sparc/bin \
 #    /mnts/solarium/develop-96q2/bin \
 #${SYBASE} \
-    /mnts/cdstools/PurifyPlus-7.0/${PLATFORM}/bin ) 
+    ${CDSTOOLS}/PurifyPlus-7.0/${PLATFORM}/bin ) 
 
 if ( "$PLATFORM_WIDE" == "rhel-x86_64-5.2" ) then
   set MYAPP = /mnts/buildarea13/ase/rayc/app/opt
@@ -104,7 +105,7 @@ endif
 endif
 
 # temporarily setting
-if ($HOST != "titans" && $RHOST != ca0d0346) then
+if ($HOST != "titans" && $RHOST != "10" ) then
   setenv DISPLAY titans:10
 endif
 
@@ -116,7 +117,7 @@ setenv ASE_VERSION 4.7.0
 setenv PATH /home/rayc/ase/scripts:$PATH
 
 # For WorkShop license
-#setenv LM_LICENSE_FILE "/home/develop/Tools/SunWorkshop/SUNWspro/license_dir/sunpro.lic,node":/mnts/cdstools/SunCC-6.2.2/share/etc/licenses
+#setenv LM_LICENSE_FILE "/home/develop/Tools/SunWorkshop/SUNWspro/license_dir/sunpro.lic,node":${CDSTOOLS}/SunCC-6.2.2/share/etc/licenses
 
 setenv CVSEDITOR vim
 setenv EDITOR vim

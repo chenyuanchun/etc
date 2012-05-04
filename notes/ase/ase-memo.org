@@ -4,8 +4,7 @@
 #+AUTHOR: Ray Chen
 
 * Test harness - git
-  git clone ase@titans:/mnts/qaarea3/testpcre/ase/ASETests.git Tests
-  git clone ase@titans:/mnts/qaarea3/testpcre/ase/ASEBaselines.git Baselines
+  git clone ase@titans:/mnts/qaarea3/testpcre/ase/ASETestHarness.git Tests
 * AlgoSuite
 ** Install
    /mnts/postings5/AlgoBin-4.7.0/latest/share/private/linkinstaller -p /mnts/packaging/central_installation/4.7.0/AlgoSuite-daily/promoted/solaris-sparc64-2.10-oracle-11g/ -i AS470
@@ -29,13 +28,18 @@
 ** Installation
    Copy the zip files from central installation
    C:\Algorithmics\algosuite471>.\bin\createTOP .\ .\TOP
+   %algo_home%\bin\createTOP <algohome> <algotop>, OR
+   set algo_home=<algohome> set algo_top=<algotop> %algo_home%\bin\createTOP 
 ** Run
    C:\Algorithmics\algosuite471\TOP\algocmd.exe
 
    %ALGOSECURITY_HOME%\bin\start-algosecurity -d securitymaster
    %ALGOSECURITY_HOME%\bin\stop-algosecurity -U algo -P password -R algosuite
 
-   %ALGO_HOME%\algosecurity\bin\start-cfgserver
+   OR
+
+   %ALGO_HOME%\algosecurity\bin\start-cfgserver OR
+   %ALGO_HOME%\services\bin\start-cfgserver
 
    %ASE_HOME%\bin\start-ase server -C aserc -U algo -P password -R algosuite-test -c %ALGO_HOME%/cfg/ConfigServer.cfg
    %ASE_HOME%\bin\start-ase server -C aserc -U algo -P password -R algosuite-test
@@ -49,6 +53,7 @@
 
 * Change management
   promote: /mnts/cdstools/share/bin/promote ASEUtilities 4.7.0 0079
+  promote -a -p ASE -v 4.8.0 -b 0086
 * CVS SVN account
   regular unix authentication
   | product   | platform | url                                            |
@@ -57,3 +62,19 @@
   | ASE       | Unix     | svn://algosvn/ASE/branches/4.7.0               |
   | Utilities | Windows  | http://algosvn/svn/ASEUtilities/branches/4.7.0 |
   | Utilities | Unix     | svn://algosvn/ASEUtilities/branches/4.7.0      |
+
+* algomake
+  - show tools: algoworkon --compiler=gcc-4.3.3 -c algomake _SHOWTOOLS_ |& grep binutils
+  - 64bit: Setenv WIDE_ARCH yes or algoworkon --wide
+  - specify tool path: tool_AlgoCxx_path=/path/to/algocxx/platform
+** windows
+   ASEUtilities
+   cd $ASEUTILITIES_HOME
+   C:\algomakebuilds\windows_build\AlgoInit-x86-64.bat
+   set SHELL=ksh
+   algoworkon -pASEUtilities
+   Algomake tool_AlgoCxx_path=C:/algomakebuilds/tools/AlgoCxx-4.7.0/0106/win32-x86_64-6.1-noopt-debug  tool_ASEUtilitiesLib_path=C:/algomakebuilds/tools/ASE-4.7.0/0788/win32-x86_64-6.1-debug
+
+* waf
+  ./waf configure --no-tool-copy
+  ./waf
