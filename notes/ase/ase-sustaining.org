@@ -866,7 +866,65 @@
 * ACR00192421
 ** There are 2 issues found in input time series data:
    1. negative axis values in some risk factors
-   2. ir data used are inconsistent in terms, 20 terms on each day, but 801 intotal
+   2. ir data used are inconsistent in terms, 20 terms on each day, but 801 in total
 ** reject the request if ScenarioOutputType is incompatible with particular model.  rev. 13665
 ** issue can be reproduced with test cases: RiskNeutralRelativeScenOut-NoArb and RiskNeutralRelativeScenOut-Ebs
    root cause is Ratio cannot apply to hwbs models
+** As per Mourad's request, changed to logging a minor message only, and using model setting if the configuration is invalid
+   rev. 13717
+   error message:
+   Scenario output type [Ratio] cannot apply to model [M_2F_RN] which accepts AsIs or Relative only. Please check configuration of ScenarioOutputType
+   ScenarioOutputType configuration [Ratio] cannot apply to model [M_2F_RN], model setting [Relative] will be used instead.
+* ACR00095569 ASE Dump Precision Setting
+  rev. 13668
+  reverted at rev. 13708 as OutputPrecision is intended to indicate precision for all text output now.
+** Following test cases updated:
+   commodityCMF_Binary
+   commodityCMF_DB2
+   commodityCMF_MSSQL
+   commodityCMF_Oracle
+   components_DB2
+   components_MSSQL
+   dateFormat_Binary
+   dateFormat_DB2
+   dateFormat_MSSQL
+   dateFormat_Oracle
+   dbDmpDateFilter_Binary
+   dbDmpDateFilter_MSSQL
+   dbDmpDateFilter_Oracle
+   dbDmpMultipleFlags_Binary
+   dbDmpMultipleFlags_MSSQL
+   dbDmpMultipleFlags_Oracle
+   dbDmpWildCards_Binary
+   dbDmpWildCards_MSSQL
+   dbDmpWildCards_Oracle
+   deletions_Binary
+   deletions_DB2
+   deletions_MSSQL
+   deletions_Oracle
+   loadPerformance_Oracle
+   load_dump_Binary
+   load_dump_DB2
+   load_dump_MSSQL
+   load_dump_Oracle
+   multipleRFsOneHeader_Binary
+   multipleRFsOneHeader_DB2
+   multipleRFsOneHeader_MSSQL
+   multipleRFsOneHeader_Oracle
+   repeatedValues_MSSQL
+   spacesInFields_DB2
+   spacesInFields_MSSQL
+   update_Binary
+   update_DB2
+   update_MSSQL
+   update_Oracle
+
+* ACR00193427 Exporting pca diagnostics causes a core dump
+  The root cause is for CFC blocks, ASE sees one block per currency, while PCA server(from GenLib perspective) sees one block per risk factor. The current code doesn't take this situation into account, so that index goes out of range when going over both PCA options and NoArb subblocks.
+
+  It is fixed based the assumption that PCA options are in the same order of NoArb subblocks. Now ASE dumps one file per PCA option for CFC blocks with risk factor name appending at the end of the original file names.
+
+  Mourad's suggestions:
+1. Dump PCA options of one CFC block into one file
+2. Add a wrapper type to hold the subblock name for each PCA option, so that only the pca options need to go over when being dumped.
+
