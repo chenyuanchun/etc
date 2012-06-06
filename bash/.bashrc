@@ -5,16 +5,60 @@
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
+# User specific aliases and functions
+#
+# cd upper levels
+#
+function cd {
+    local option= length= count= cdpath= i=
+# if we have -L or -P sym link option, save then remove it
+    if [ "$1" = "-P" -o "$1" = "-L" ]; then
+        option="$1"
+        shift
+    fi
+
+    if [ -n "$1" -a "${1:0:3}" = '...' -a "$1" = "${1%/*}" ]; then
+        length=${#1}
+        count=2
+        for ((i=$count;i<=$length;i++)); do
+            cdpath="${cdpath}../"
+        done
+        builtin cd $option "$cdpath"
+    elif [ -n "$1" ]; then
+        builtin cd $option "$*"
+    else
+        builtin cd $option
+    fi
+}
+
+#
+# mkdir newdir then cd into it
+#
+function mcd {
+    local newdir='_mcd_command_failed_'
+    if [ -d "$1" ]; then
+        echo "$1 exists..."
+        newdir="$1"
+    else
+        if [ -n "$2" ]; then
+            command mkdir -p -m $1 "$2" && newdir="$2"
+        else
+            command mkdir -p "$1" && newdir="$1"
+        fi
+    fi
+    builtin cd "$newdir"
+}
+
 # don't put duplicate lines in the history. See bash(1) for more options
 # ... or force ignoredups and ignorespace
-HISTCONTROL=ignoredups:ignorespace
+#HISTCONTROL=ignoredups:ignorespace
+export HISTIGNORE="pwd:ls:ls -lrt"
+export HISTCONTROL=ignoreboth
+export HISTSIZE=1000
+export HISTFILESIZE=2000
 
 # append to the history file, don't overwrite it
 shopt -s histappend
-
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -49,6 +93,9 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
+# set up prompt
+#export PS1='\n=== \h [\D{%m-%d %H:%M:%S}] \w ===\n$ '
+
 if [ "$color_prompt" = yes ]; then
     PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 else
@@ -64,6 +111,9 @@ xterm*|rxvt*)
 *)
     ;;
 esac
+
+# set cd path
+export CDPATH=".:$HOME/workspace"
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
