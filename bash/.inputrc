@@ -1,3 +1,9 @@
+# no double tab
 set show-all-if-ambiguous on
-"\ep": history-search-backward
-"\en": history-search-forward 
+
+"\C-p": history-search-backward
+"\C-n": history-search-forward
+
+#completion of symbolic links to directory
+set mark-symlinked-directories on
+ 
