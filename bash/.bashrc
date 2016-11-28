@@ -1,154 +1,30 @@
-# If not running interactively, don't do anything
-[ "$PS1" ] || return
+# .bashrc
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+	. /etc/bashrc
+fi
 
 # User specific aliases and functions
-#
-# cd upper levels
-#
-function cd {
-    local option= length= count= cdpath= i=
-# if we have -L or -P sym link option, save then remove it
-    if [ "$1" = "-P" -o "$1" = "-L" ]; then
-        option="$1"
-        shift
-    fi
+MY_BASHRC=$HOME/mydata/settings/etc/bash/rayrc
+[ -f $MY_BASHRC -a -n "$PS1" ] && . $MY_BASHRC
 
-    if [ -n "$1" -a "${1:0:3}" = '...' -a "$1" = "${1%/*}" ]; then
-        length=${#1}
-        count=2
-        for ((i=$count;i<=$length;i++)); do
-            cdpath="${cdpath}../"
-        done
-        builtin cd $option "$cdpath"
-    elif [ -n "$1" ]; then
-        builtin cd $option "$*"
-    else
-        builtin cd $option
-    fi
-}
+# Java
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 
-#
-# mkdir newdir then cd into it
-#
-function mcd {
-    local newdir='_mcd_command_failed_'
-    if [ -d "$1" ]; then
-        echo "$1 exists..."
-        newdir="$1"
-    else
-        if [ -n "$2" ]; then
-            command mkdir -p -m $1 "$2" && newdir="$2"
-        else
-            command mkdir -p "$1" && newdir="$1"
-        fi
-    fi
-    builtin cd "$newdir"
-}
+# hadoop alias
+HDP_ALIAS=$HOME/alias.hdp
+[ -f $HDP_ALIAS ] && . $HDP_ALIAS
 
-# don't put duplicate lines in the history. See bash(1) for more options
-# ... or force ignoredups and ignorespace
-#HISTCONTROL=ignoredups:ignorespace
-export HISTIGNORE="pwd:ls:ls -lrt"
-export HISTCONTROL=ignoreboth
-export HISTSIZE=1000
-export HISTFILESIZE=2000
+alias clipboard='xclip -selection clipboard'
 
-# append to the history file, don't overwrite it
-shopt -s histappend
+# added by Miniconda2 4.0.5 installer
+export PATH=$HOME/miniconda2/bin:$PATH
 
-# check the window size after each command and, if necessary,
-# update the values of LINES and COLUMNS.
-shopt -s checkwinsize
+#spring cli
+PATH=/usr/spring-boot/bin:$PATH
+SPRING_BASH=/usr/spring-boot/shell-completion/bash/spring.bash
+[ -f $SPRING_BASH ] && . $SPRING_BASH
 
-# make less more friendly for non-text input files, see lesspipe(1)
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-
-# set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
-fi
-
-# set a fancy prompt (non-color, unless we know we "want" color)
-case "$TERM" in
-    xterm-color) color_prompt=yes;;
-esac
-
-# uncomment for a colored prompt, if the terminal has the capability; turned
-# off by default to not distract the user: the focus in a terminal window
-# should be on the output of commands, not on the prompt
-#force_color_prompt=yes
-
-if [ -n "$force_color_prompt" ]; then
-    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
-    else
-	color_prompt=
-    fi
-fi
-
-# set up prompt
-#export PS1='\n=== \h [\D{%m-%d %H:%M:%S}] \w ===\n$ '
-
-if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-fi
-unset color_prompt force_color_prompt
-
-# If this is an xterm set the title to user@host:dir
-case "$TERM" in
-xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-    ;;
-*)
-    ;;
-esac
-
-# set cd path
-export CDPATH=".:$HOME/workspace"
-
-# enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
-
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
-fi
-
-# some more ls aliases
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
-
-# Add an "alert" alias for long running commands.  Use like so:
-#   sleep 10; alert
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
-
-# enable programmable completion features (you don't need to enable
-# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
-# sources /etc/bash.bashrc).
-if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-    . /etc/bash_completion
-fi
-
-# Ray
-#LANGUAGE="zh_CN:zh:en_US:en"
-#LANG=zh_CN.GBK
-
+#hbase client
+export HBASE_CONF_DIR=${HOME}/config
