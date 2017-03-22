@@ -26,8 +26,8 @@ stty -ixon #-ixoff
 # history
 export HISTIGNORE=".1:.2:.3:.4:pwd:ls:l:la:ll:exit:quit:h:w:who:whoami:alias:which*:whereis*:cd:python*:emacs*:eclipse*:ps:v:vi:vim:envhost*:hostname:make:pstack*:pstree*:ifconfig*:jobs:fg:bg*:cal:date:locate:sleep*"
 export HISTCONTROL=ignoreboth:erasedups
-export HISTSIZE=1000
-export HISTFILESIZE=5000
+export HISTSIZE=3000
+export HISTFILESIZE=10000
 
 # extended globbing
 shopt -s extglob
